@@ -2,6 +2,8 @@ lib/constants/secrets.dart
 lib/constants/secrets
 /lib/constants/secrets.dart
 /lib/constants/secrets
+openai_chatgpt_chatapp/lib/constants/secrets.dart
+openai_chatgpt_chatapp/lib/constants/secrets
 ./lib/constants/secrets.dart
 ./lib/constants/secrets
 secrets.dart
