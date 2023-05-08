@@ -1,3 +1,5 @@
+lib/costants/secrets.dart
+
 # Miscellaneous
 *.class
 *.log
