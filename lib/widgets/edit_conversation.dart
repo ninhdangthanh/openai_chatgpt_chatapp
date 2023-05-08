@@ -78,8 +78,8 @@ class EditConversaion extends StatelessWidget {
                             primary: Colors.green[700]),
                         onPressed: () async {
                           await saveUpdateConversation();
-                          Navigator.of(context).pop();
-                          loadData();
+                          await loadData();
+                          await hideEditConversation();
                         },
                         child: const Text(
                           "Save",
@@ -115,7 +115,7 @@ class EditConversaion extends StatelessWidget {
   }
 
   Future<void> saveUpdateConversation() async {
-    conversation.name = nameConvText.text;
-    _databaseHelper.updateConv(conversation);
+    conversation.name = await nameConvText.text;
+    await _databaseHelper.updateConv(conversation);
   }
 }
