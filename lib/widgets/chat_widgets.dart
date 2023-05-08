@@ -1,14 +1,19 @@
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:openai_chatgpt_chatapp/constants/constants.dart';
 import 'package:openai_chatgpt_chatapp/services/assets_manager.dart';
 import 'package:openai_chatgpt_chatapp/widgets/text_widget.dart';
 
 class ChatWidget extends StatelessWidget {
+  const ChatWidget(
+      {super.key,
+      required this.msg,
+      required this.chatIndex,
+      this.shouldAnimate = false});
+
   final String msg;
   final int chatIndex;
-
-  ChatWidget({super.key, required this.msg, required this.chatIndex});
-
+  final bool shouldAnimate;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -16,7 +21,7 @@ class ChatWidget extends StatelessWidget {
         Material(
           color: chatIndex == 0 ? scaffoldBackgroundColor : cardColor,
           child: Padding(
-            padding: EdgeInsets.all(8),
+            padding: const EdgeInsets.all(8.0),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -24,15 +29,35 @@ class ChatWidget extends StatelessWidget {
                   chatIndex == 0
                       ? AssetsManager.userImage
                       : AssetsManager.botImage,
-                  width: 30,
                   height: 30,
+                  width: 30,
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 8,
                 ),
-                Expanded(child: TextWidget(label: msg)),
+                Expanded(
+                  child: chatIndex == 0
+                      ? TextWidget(
+                          label: msg,
+                        )
+                      : shouldAnimate
+                          ? DefaultTextStyle(
+                              style: const TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 16),
+                              child: Text(msg.trim()),
+                            )
+                          : Text(
+                              msg.trim(),
+                              style: const TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 16),
+                            ),
+                ),
                 chatIndex == 0
-                    ? SizedBox.shrink()
+                    ? const SizedBox.shrink()
                     : Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         mainAxisSize: MainAxisSize.min,
@@ -49,11 +74,11 @@ class ChatWidget extends StatelessWidget {
                             color: Colors.white,
                           )
                         ],
-                      )
+                      ),
               ],
             ),
           ),
-        )
+        ),
       ],
     );
   }

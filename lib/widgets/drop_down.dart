@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:openai_chatgpt_chatapp/providers/models_provider.dart';
 import 'package:openai_chatgpt_chatapp/services/api_services.dart';
 import 'package:openai_chatgpt_chatapp/widgets/text_widget.dart';
+import 'package:provider/provider.dart';
 
 import '../constants/constants.dart';
+import '../models/models_model.dart';
 
 class ModelsDrowDownWidget extends StatefulWidget {
   const ModelsDrowDownWidget({super.key});
@@ -12,35 +16,55 @@ class ModelsDrowDownWidget extends StatefulWidget {
 }
 
 class _ModelsDrowDownWidgetState extends State<ModelsDrowDownWidget> {
-  String currentModels = "gpt-3.5-turbo";
+  String? currentModel;
 
+  bool isFirstLoading = true;
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-        future: ApiService.getModels(),
+    final modelsProvider = Provider.of<ModelsProvider>(context, listen: false);
+    currentModel = modelsProvider.getCurrentModel;
+    return FutureBuilder<List<ModelsModel>>(
+        future: modelsProvider.getAllModels(),
         builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting &&
+              isFirstLoading == true) {
+            isFirstLoading = false;
+            return const FittedBox(
+              child: SpinKitFadingCircle(
+                color: Colors.lightBlue,
+                size: 30,
+              ),
+            );
+          }
           if (snapshot.hasError) {
-            return Center(child: TextWidget(label: snapshot.error.toString()));
+            return Center(
+              child: TextWidget(label: snapshot.error.toString()),
+            );
           }
           return snapshot.data == null || snapshot.data!.isEmpty
-              ? SizedBox.shrink()
+              ? const SizedBox.shrink()
               : FittedBox(
                   child: DropdownButton(
-                      dropdownColor: scaffoldBackgroundColor,
-                      items: List<DropdownMenuItem<String>>.generate(
-                          snapshot.data!.length,
-                          (index) => DropdownMenuItem(
-                              value: snapshot.data![index].id,
-                              child: TextWidget(
-                                label: snapshot.data![index].id,
-                                fontSize: 15,
-                              ))),
-                      value: currentModels,
-                      onChanged: (value) {
-                        setState(() {
-                          currentModels = value.toString();
-                        });
-                      }),
+                    dropdownColor: scaffoldBackgroundColor,
+                    iconEnabledColor: Colors.white,
+                    items: List<DropdownMenuItem<String>>.generate(
+                        snapshot.data!.length,
+                        (index) => DropdownMenuItem(
+                            value: snapshot.data![index].id,
+                            child: TextWidget(
+                              label: snapshot.data![index].id,
+                              fontSize: 15,
+                            ))),
+                    value: currentModel,
+                    onChanged: (value) {
+                      setState(() {
+                        currentModel = value.toString();
+                      });
+                      modelsProvider.setCurrentModel(
+                        value.toString(),
+                      );
+                    },
+                  ),
                 );
         });
   }

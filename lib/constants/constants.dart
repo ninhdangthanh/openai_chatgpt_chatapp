@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 
 import '../widgets/text_widget.dart';
 
-Color scaffoldBackgroundColor = const Color(0xFF343541);
-Color cardColor = const Color(0xFF444654);
+Color scaffoldBackgroundColor = const Color(0xFF0F1013);
+Color cardColor = const Color(0xFF1F2025);
+Color cardColorHistory = const Color(0xFF191919);
 
 // List<String> models = [
 //   'Model1',
