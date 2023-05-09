@@ -3,6 +3,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:openai_chatgpt_chatapp/models/chat_model.dart';
 import 'package:openai_chatgpt_chatapp/providers/chat_provider.dart';
+import 'package:openai_chatgpt_chatapp/widgets/blank_chatbox.dart';
 import 'package:provider/provider.dart';
 
 import '../constants/constants.dart';
@@ -25,17 +26,22 @@ class _HistoryScreenState extends State<HistoryScreen> {
   List<ConversationModel> conversations = [];
   ConversationModel? edit_conversation;
   bool isShowEditConvModel = false;
+  bool isLoading = true;
 
   Future<void> loadData() async {
     var conversationList = await _databaseHelper.getAllConv();
     setState(() {
       conversations = conversationList;
+      isLoading = false;
     });
   }
 
   @override
   void initState() {
     super.initState();
+    setState(() {
+      isLoading = true;
+    });
     loadData();
   }
 
@@ -82,103 +88,118 @@ class _HistoryScreenState extends State<HistoryScreen> {
           ]),
         ),
         body: SafeArea(
+            child: Visibility(
+          visible: isLoading,
+          child: Center(
+            child: CircularProgressIndicator(),
+          ),
+          replacement: RefreshIndicator(
+            onRefresh: loadData,
             child: Container(
-          child: Column(
-            children: [
-              Expanded(
-                  child: ListView.builder(
-                      padding: EdgeInsets.all(10),
-                      itemCount: conversations.length,
-                      itemBuilder: (context, index) {
-                        return Card(
-                          // color: conversations[index].id ==
-                          //         conversationProvider.getConversation?.id
-                          //     ? Color(0xFF3C3C3C)
-                          //     : Color(0xFF191919),
-                          color: edit_conversation?.id ==
-                                  conversations[index].id
-                              ? Color(0xFF293200)
-                              : (conversations[index].id ==
-                                      conversationProvider.getConversation?.id
-                                  ? Color(0xFF3C3C3C)
-                                  : Color(0xFF191919)),
-                          child: ListTile(
-                            onTap: () async {
-                              // Handle onTap action here
-                              conversationProvider.changeCurrentConversation(
-                                  conversationModel: conversations[index]);
-                              List<ChatModel> chats =
-                                  await _databaseHelper.getChatByConversationId(
-                                      conversations[index].id!);
-                              chatProvider.changeChatList(chats: chats);
-                              hideEditConversation();
-                              Navigator.pushNamed(context, '/chat-screen');
-                            },
-                            leading: CircleAvatar(
-                              child: Text(
-                                '${index + 1}',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white),
-                              ),
-                              backgroundColor: edit_conversation?.id ==
-                                      conversations[index].id
-                                  ? Colors.yellow[900]
-                                  : (conversations[index].id ==
-                                          conversationProvider
-                                              .getConversation?.id
-                                      ? Colors.blue[700]
-                                      : Colors.green[700]),
-                            ),
-                            title: Text(
-                              conversations[index].name,
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 20),
-                            ),
-                            trailing: conversations[index].id ==
-                                    conversationProvider.getConversation?.id
-                                ? SizedBox.shrink()
-                                : PopupMenuButton(
-                                    color: Colors.white,
-                                    onSelected: (value) {
-                                      if (value == 'edit') {
-                                        //open edit page
-                                        setState(() {
-                                          edit_conversation =
-                                              conversations[index];
-                                          isShowEditConvModel = true;
-                                        });
-                                      } else if (value == 'delete') {
-                                        // delete and remove item
-                                        hideEditConversation();
-                                        Services.showEditConvModal(
-                                            context: context,
-                                            conversation: conversations[index],
-                                            loadData: loadData as Function);
-                                      }
+              child: Column(
+                children: [
+                  Expanded(
+                      child: conversations.isEmpty
+                          ? BlankChatBox()
+                          : ListView.builder(
+                              padding: EdgeInsets.all(10),
+                              itemCount: conversations.length,
+                              itemBuilder: (context, index) {
+                                return Card(
+                                  color: edit_conversation?.id ==
+                                          conversations[index].id
+                                      ? Color(0xFF293200)
+                                      : (conversations[index].id ==
+                                              conversationProvider
+                                                  .getConversation?.id
+                                          ? Color(0xFF3C3C3C)
+                                          : Color(0xFF191919)),
+                                  child: ListTile(
+                                    onTap: () async {
+                                      // Handle onTap action here
+                                      conversationProvider
+                                          .changeCurrentConversation(
+                                              conversationModel:
+                                                  conversations[index]);
+                                      List<ChatModel> chats =
+                                          await _databaseHelper
+                                              .getChatByConversationId(
+                                                  conversations[index].id!);
+                                      chatProvider.changeChatList(chats: chats);
+                                      hideEditConversation();
+                                      Navigator.pushNamed(
+                                          context, '/chat-screen');
                                     },
-                                    itemBuilder: (context) {
-                                      return [
-                                        PopupMenuItem(
-                                          child: Text("Edit"),
-                                          value: 'edit',
-                                        ),
-                                        PopupMenuItem(
-                                          child: Text("Delete"),
-                                          value: 'delete',
-                                        )
-                                      ];
-                                    }),
-                          ),
-                        );
-                      })),
-              isShowEditConvModel
-                  ? EditConversaion(
-                      hideEditConversation: hideEditConversation,
-                      conversation: edit_conversation as ConversationModel,
-                      loadData: loadData as Function)
-                  : SizedBox.shrink()
-            ],
+                                    leading: CircleAvatar(
+                                      child: Text(
+                                        '${index + 1}',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.white),
+                                      ),
+                                      backgroundColor: edit_conversation?.id ==
+                                              conversations[index].id
+                                          ? Colors.yellow[900]
+                                          : (conversations[index].id ==
+                                                  conversationProvider
+                                                      .getConversation?.id
+                                              ? Colors.blue[700]
+                                              : Colors.green[700]),
+                                    ),
+                                    title: Text(
+                                      conversations[index].name,
+                                      style: TextStyle(
+                                          color: Colors.white, fontSize: 20),
+                                    ),
+                                    trailing: conversations[index].id ==
+                                            conversationProvider
+                                                .getConversation?.id
+                                        ? SizedBox.shrink()
+                                        : PopupMenuButton(
+                                            color: Colors.white,
+                                            onSelected: (value) {
+                                              if (value == 'edit') {
+                                                //open edit page
+                                                setState(() {
+                                                  edit_conversation =
+                                                      conversations[index];
+                                                  isShowEditConvModel = true;
+                                                });
+                                              } else if (value == 'delete') {
+                                                // delete and remove item
+                                                hideEditConversation();
+                                                Services.showEditConvModal(
+                                                    context: context,
+                                                    conversation:
+                                                        conversations[index],
+                                                    loadData:
+                                                        loadData as Function);
+                                              }
+                                            },
+                                            itemBuilder: (context) {
+                                              return [
+                                                PopupMenuItem(
+                                                  child: Text("Edit"),
+                                                  value: 'edit',
+                                                ),
+                                                PopupMenuItem(
+                                                  child: Text("Delete"),
+                                                  value: 'delete',
+                                                )
+                                              ];
+                                            }),
+                                  ),
+                                );
+                              })),
+                  isShowEditConvModel
+                      ? EditConversaion(
+                          hideEditConversation: hideEditConversation,
+                          conversation: edit_conversation as ConversationModel,
+                          loadData: loadData as Function)
+                      : SizedBox.shrink()
+                ],
+              ),
+            ),
           ),
         )),
       ),

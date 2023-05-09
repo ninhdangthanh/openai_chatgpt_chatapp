@@ -64,20 +64,6 @@ class _TestScreenState extends State<TestScreen> {
   Future<void> submitData(ConversationProvider conversationProvider) async {
     print("click submit");
     //have conversation
-    ConversationModel? conversationModel =
-        await _databaseHelper.getEndElemConversation();
-    conversationProvider.changeCurrentConversation(
-        conversationModel: conversationModel!);
-    //have chat
-    ChatModel chat = await ChatModel(msg: "Hello GPT", chatIndex: 1);
-    //use function
-    HistoryService.addChatToConversation(
-        chat: chat, conversation: conversationProvider.getConversation!);
-
-    //print
-    List<ChatModel> listChat = await _databaseHelper.getAllChat();
-    listChat.forEach((element) {
-      print("testtt -- ${element.toString()}");
-    });
+    await _databaseHelper.clearDataInDb();
   }
 }

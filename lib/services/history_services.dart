@@ -14,13 +14,13 @@ class HistoryService {
     if (endConv == null) {
       newIdConv = 1;
     } else {
-      newIdConv = endConv.id! + 2;
+      newIdConv = endConv.id! + 1;
     }
     ConversationModel newConversation = await _databaseHelper
         .addConv(ConversationModel(name: "New Chat ${newIdConv}"));
-    newConversation.id = newIdConv - 1;
+    endConv = await _databaseHelper.getEndElemConversation();
     conversationProvider.changeCurrentConversation(
-        conversationModel: newConversation);
+        conversationModel: endConv as ConversationModel);
   }
 
   static void addChatToConversation(
