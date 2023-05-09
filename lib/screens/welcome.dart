@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:openai_chatgpt_chatapp/providers/conversation_provider.dart';
+import 'package:ChatGPT/providers/conversation_provider.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/chat_provider.dart';

@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:openai_chatgpt_chatapp/models/conversation_model.dart';
-import 'package:openai_chatgpt_chatapp/providers/conversation_provider.dart';
-import 'package:openai_chatgpt_chatapp/screens/history_screen.dart';
+import 'package:ChatGPT/models/conversation_model.dart';
+import 'package:ChatGPT/providers/conversation_provider.dart';
+import 'package:ChatGPT/screens/history_screen.dart';
 import 'package:provider/provider.dart';
 
 import '../constants/constants.dart';

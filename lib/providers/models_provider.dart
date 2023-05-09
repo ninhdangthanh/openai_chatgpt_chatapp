@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:openai_chatgpt_chatapp/models/models_model.dart';
-import 'package:openai_chatgpt_chatapp/services/api_services.dart';
+import 'package:ChatGPT/models/models_model.dart';
+import 'package:ChatGPT/services/api_services.dart';
 
 class ModelsProvider with ChangeNotifier {
   String currentModel = "gpt-3.5-turbo";

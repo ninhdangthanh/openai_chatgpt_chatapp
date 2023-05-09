@@ -1,7 +1,7 @@
 import 'dart:io';
 
-import 'package:openai_chatgpt_chatapp/models/chat_model.dart';
-import 'package:openai_chatgpt_chatapp/models/conversation_model.dart';
+import 'package:ChatGPT/models/chat_model.dart';
+import 'package:ChatGPT/models/conversation_model.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 import 'dart:async';

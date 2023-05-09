@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:openai_chatgpt_chatapp/models/chat_model.dart';
-import 'package:openai_chatgpt_chatapp/models/conversation_model.dart';
-import 'package:openai_chatgpt_chatapp/providers/conversation_provider.dart';
-import 'package:openai_chatgpt_chatapp/services/history_services.dart';
+import 'package:ChatGPT/models/chat_model.dart';
+import 'package:ChatGPT/models/conversation_model.dart';
+import 'package:ChatGPT/providers/conversation_provider.dart';
+import 'package:ChatGPT/services/history_services.dart';
 import 'package:provider/provider.dart';
 
 import '../database/database.dart';

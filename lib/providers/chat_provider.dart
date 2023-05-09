@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
-import 'package:openai_chatgpt_chatapp/database/database.dart';
-import 'package:openai_chatgpt_chatapp/models/conversation_model.dart';
-import 'package:openai_chatgpt_chatapp/providers/conversation_provider.dart';
-import 'package:openai_chatgpt_chatapp/services/history_services.dart';
+import 'package:ChatGPT/database/database.dart';
+import 'package:ChatGPT/models/conversation_model.dart';
+import 'package:ChatGPT/providers/conversation_provider.dart';
+import 'package:ChatGPT/services/history_services.dart';
 import 'package:sqflite/sqflite.dart';
 
 import '../models/chat_model.dart';

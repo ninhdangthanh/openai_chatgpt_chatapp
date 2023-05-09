@@ -1,5 +1,5 @@
-import 'package:openai_chatgpt_chatapp/models/chat_model.dart';
-import 'package:openai_chatgpt_chatapp/models/conversation_model.dart';
+import 'package:ChatGPT/models/chat_model.dart';
+import 'package:ChatGPT/models/conversation_model.dart';
 
 import '../database/database.dart';
 import '../providers/conversation_provider.dart';

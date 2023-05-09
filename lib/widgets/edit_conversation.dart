@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
-import 'package:openai_chatgpt_chatapp/models/conversation_model.dart';
+import 'package:ChatGPT/models/conversation_model.dart';
 
 import '../constants/constants.dart';
 import '../database/database.dart';

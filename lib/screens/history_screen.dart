@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
-import 'package:openai_chatgpt_chatapp/models/chat_model.dart';
-import 'package:openai_chatgpt_chatapp/providers/chat_provider.dart';
-import 'package:openai_chatgpt_chatapp/widgets/blank_chatbox.dart';
+import 'package:ChatGPT/models/chat_model.dart';
+import 'package:ChatGPT/providers/chat_provider.dart';
+import 'package:ChatGPT/widgets/blank_chatbox.dart';
 import 'package:provider/provider.dart';
 
 import '../constants/constants.dart';

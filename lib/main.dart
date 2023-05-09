@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:openai_chatgpt_chatapp/providers/chat_provider.dart';
-import 'package:openai_chatgpt_chatapp/providers/conversation_provider.dart';
-import 'package:openai_chatgpt_chatapp/providers/models_provider.dart';
-import 'package:openai_chatgpt_chatapp/screens/chat_screen.dart';
-import 'package:openai_chatgpt_chatapp/screens/history_screen.dart';
-import 'package:openai_chatgpt_chatapp/screens/test_screen.dart';
-import 'package:openai_chatgpt_chatapp/screens/welcome.dart';
+import 'package:ChatGPT/providers/chat_provider.dart';
+import 'package:ChatGPT/providers/conversation_provider.dart';
+import 'package:ChatGPT/providers/models_provider.dart';
+import 'package:ChatGPT/screens/chat_screen.dart';
+import 'package:ChatGPT/screens/history_screen.dart';
+import 'package:ChatGPT/screens/test_screen.dart';
+import 'package:ChatGPT/screens/welcome.dart';
 import 'package:provider/provider.dart';
 
 import 'constants/constants.dart';

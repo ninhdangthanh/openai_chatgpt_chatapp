@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:openai_chatgpt_chatapp/providers/models_provider.dart';
-import 'package:openai_chatgpt_chatapp/services/api_services.dart';
-import 'package:openai_chatgpt_chatapp/widgets/text_widget.dart';
+import 'package:ChatGPT/providers/models_provider.dart';
+import 'package:ChatGPT/services/api_services.dart';
+import 'package:ChatGPT/widgets/text_widget.dart';
 import 'package:provider/provider.dart';
 
 import '../constants/constants.dart';

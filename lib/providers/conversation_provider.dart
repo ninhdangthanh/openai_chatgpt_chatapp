@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
-import 'package:openai_chatgpt_chatapp/database/database.dart';
-import 'package:openai_chatgpt_chatapp/models/conversation_model.dart';
+import 'package:ChatGPT/database/database.dart';
+import 'package:ChatGPT/models/conversation_model.dart';
 
 class ConversationProvider with ChangeNotifier {
   final DatabaseHelper _databaseHelper = DatabaseHelper();
