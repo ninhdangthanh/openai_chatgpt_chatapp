@@ -25,15 +25,26 @@ class ChatScreen extends StatefulWidget {
 
 class _ChatScreenState extends State<ChatScreen> {
   bool _isTyping = false;
+  bool isSpeaking = false;
 
   late TextEditingController textEditingController;
   late ScrollController _listScrollController;
   late FocusNode focusNode;
+
+  List<GlobalKey<ChatWidgetState>> _childWidgetKeys = [];
+
+  void _toggleChildWidget() {
+    _childWidgetKeys.forEach((key) {
+      key.currentState?.setFalse();
+    });
+  }
+
   @override
   void initState() {
     _listScrollController = ScrollController();
     textEditingController = TextEditingController();
     focusNode = FocusNode();
+    _childWidgetKeys = List.generate(100, (_) => GlobalKey<ChatWidgetState>());
     super.initState();
   }
 
@@ -54,7 +65,7 @@ class _ChatScreenState extends State<ChatScreen> {
 
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Colors.black,
+        backgroundColor: backgroundColor,
         appBar: AppBar(
           backgroundColor: cardColor,
           elevation: 2,
@@ -62,7 +73,10 @@ class _ChatScreenState extends State<ChatScreen> {
             padding: const EdgeInsets.all(8.0),
             child: Image.asset(AssetsManager.openaiLogo),
           ),
-          title: const Text("ChatGPT"),
+          title: Text(
+            "ChatGPT",
+            style: TextStyle(color: welcomButtomColor),
+          ),
           actions: [
             IconButton(
               onPressed: () async {
@@ -71,7 +85,7 @@ class _ChatScreenState extends State<ChatScreen> {
                     chatProvider: chatProvider,
                     conversationProvider: conversationProvider);
               },
-              icon: const Icon(Icons.more_vert_rounded, color: Colors.white),
+              icon: Icon(Icons.more_vert_rounded, color: textHeaderColor),
             ),
           ],
         ),
@@ -85,6 +99,9 @@ class _ChatScreenState extends State<ChatScreen> {
                         chatProvider.getChatList.length, //chatList.length,
                     itemBuilder: (context, index) {
                       return ChatWidget(
+                        key: _childWidgetKeys[index],
+                        changeSpeaking: changeSpeaking,
+                        isSpeaking: isSpeaking,
                         msg: chatProvider
                             .getChatList[index].msg, // chatList[index].msg,
                         chatIndex: chatProvider.getChatList[index]
@@ -95,8 +112,8 @@ class _ChatScreenState extends State<ChatScreen> {
                     }),
               ),
               if (_isTyping) ...[
-                const SpinKitThreeBounce(
-                  color: Colors.white,
+                SpinKitThreeBounce(
+                  color: textHeaderColor,
                   size: 18,
                 ),
               ],
@@ -112,7 +129,7 @@ class _ChatScreenState extends State<ChatScreen> {
                       Expanded(
                         child: TextField(
                           focusNode: focusNode,
-                          style: const TextStyle(color: Colors.white),
+                          style: TextStyle(color: textHeaderColor),
                           controller: textEditingController,
                           onSubmitted: (value) async {
                             await sendMessageFCT(
@@ -120,9 +137,9 @@ class _ChatScreenState extends State<ChatScreen> {
                                 modelsProvider: modelsProvider,
                                 chatProvider: chatProvider);
                           },
-                          decoration: const InputDecoration.collapsed(
+                          decoration: InputDecoration.collapsed(
                               hintText: "How can I help you",
-                              hintStyle: TextStyle(color: Colors.grey)),
+                              hintStyle: TextStyle(color: textInTextfield)),
                         ),
                       ),
                       IconButton(
@@ -132,9 +149,9 @@ class _ChatScreenState extends State<ChatScreen> {
                                 chatProvider: chatProvider,
                                 conversationProvider: conversationProvider);
                           },
-                          icon: const Icon(
+                          icon: Icon(
                             Icons.send,
-                            color: Colors.white,
+                            color: Colors.green[700],
                           ))
                     ],
                   ),
@@ -219,5 +236,12 @@ class _ChatScreenState extends State<ChatScreen> {
       //   print(element.toString());
       // });
     }
+  }
+
+  void changeSpeaking() {
+    setState(() {
+      isSpeaking = !isSpeaking;
+    });
+    _toggleChildWidget();
   }
 }

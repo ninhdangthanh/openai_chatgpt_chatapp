@@ -1,3 +1,4 @@
+import 'package:ChatGPT/constants/constants.dart';
 import 'package:flutter/material.dart';
 
 class TextWidget extends StatelessWidget {
@@ -19,7 +20,7 @@ class TextWidget extends StatelessWidget {
       label,
       // textAlign: TextAlign.justify,
       style: TextStyle(
-        color: color ?? Colors.white,
+        color: color ?? textHeaderColor,
         fontSize: fontSize,
         fontWeight: fontWeight ?? FontWeight.w500,
       ),

@@ -3,30 +3,95 @@ import 'package:flutter/material.dart';
 import 'package:ChatGPT/constants/constants.dart';
 import 'package:ChatGPT/services/assets_manager.dart';
 import 'package:ChatGPT/widgets/text_widget.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 
-class ChatWidget extends StatelessWidget {
-  const ChatWidget(
-      {super.key,
-      required this.msg,
-      required this.chatIndex,
-      this.shouldAnimate = false});
-
+class ChatWidget extends StatefulWidget {
   final String msg;
   final int chatIndex;
   final bool shouldAnimate;
+  bool isSpeaking;
+  Function changeSpeaking;
+
+  ChatWidget(
+      {super.key,
+      required this.msg,
+      required this.chatIndex,
+      required this.shouldAnimate,
+      required this.isSpeaking,
+      required this.changeSpeaking});
+
+  @override
+  State<ChatWidget> createState() => ChatWidgetState();
+}
+
+class ChatWidgetState extends State<ChatWidget> {
+  TextEditingController textEditingController = TextEditingController();
+  FlutterTts flutterTts = FlutterTts();
+  ValueNotifier<bool> isSpeakingText = ValueNotifier(false);
+
+  @override
+  void initState() {
+    super.initState();
+    initTts();
+  }
+
+  void setFalse() {
+    setState(() {
+      isSpeakingText.value = false;
+    });
+  }
+
+  Future<void> initTts() async {
+    await flutterTts.setLanguage("en-US");
+    await flutterTts.setPitch(1.0);
+    await flutterTts.setSpeechRate(0.5);
+    await flutterTts.setVolume(1);
+
+    flutterTts.setCompletionHandler(() {
+      if (widget.isSpeaking) {
+        widget.changeSpeaking();
+        setState(() {
+          isSpeakingText.value = false;
+        });
+
+        print("end------- $isSpeakingText.value");
+      }
+    });
+  }
+
+  Future<void> speak() async {
+    if (widget.isSpeaking == false) {
+      await flutterTts.speak(widget.msg);
+      widget.changeSpeaking();
+      setState(() {
+        isSpeakingText.value = true;
+      });
+    }
+  }
+
+  Future<void> stop() async {
+    if (widget.isSpeaking) {
+      await flutterTts.stop();
+      widget.changeSpeaking();
+      setState(() {
+        isSpeakingText.value = false;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         Material(
-          color: chatIndex == 0 ? scaffoldBackgroundColor : cardColor,
+          color: widget.chatIndex == 0 ? scaffoldBackgroundColor : cardColor,
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Image.asset(
-                  chatIndex == 0
+                  widget.chatIndex == 0
                       ? AssetsManager.userImage
                       : AssetsManager.botImage,
                   height: 30,
@@ -36,43 +101,59 @@ class ChatWidget extends StatelessWidget {
                   width: 8,
                 ),
                 Expanded(
-                  child: chatIndex == 0
+                  child: widget.chatIndex == 0
                       ? TextWidget(
-                          label: msg,
+                          label: widget.msg,
                         )
-                      : shouldAnimate
+                      : widget.shouldAnimate
                           ? DefaultTextStyle(
-                              style: const TextStyle(
-                                  color: Colors.white,
+                              style: TextStyle(
+                                  color: textHeaderColor,
                                   fontWeight: FontWeight.w700,
                                   fontSize: 16),
-                              child: Text(msg.trim()),
+                              child: Text(widget.msg.trim()),
                             )
                           : Text(
-                              msg.trim(),
-                              style: const TextStyle(
-                                  color: Colors.white,
+                              widget.msg.trim(),
+                              style: TextStyle(
+                                  color: textHeaderColor,
                                   fontWeight: FontWeight.w700,
                                   fontSize: 16),
                             ),
                 ),
-                chatIndex == 0
+                widget.chatIndex == 0
                     ? const SizedBox.shrink()
                     : Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         mainAxisSize: MainAxisSize.min,
-                        children: const [
-                          Icon(
-                            Icons.thumb_up_alt_outlined,
-                            color: Colors.white,
-                          ),
-                          SizedBox(
-                            width: 5,
-                          ),
-                          Icon(
-                            Icons.thumb_down_alt_outlined,
-                            color: Colors.white,
-                          )
+                        children: [
+                          ValueListenableBuilder(
+                              valueListenable: isSpeakingText,
+                              builder: (context, value, child) {
+                                if (value && widget.isSpeaking) {
+                                  return InkWell(
+                                    onTap: () {
+                                      stop();
+                                    },
+                                    child: Icon(
+                                      Icons.stop_circle_outlined,
+                                      color: Colors.red,
+                                      size: 30,
+                                    ),
+                                  );
+                                } else {
+                                  return InkWell(
+                                    onTap: () {
+                                      speak();
+                                    },
+                                    child: Icon(
+                                      Icons.volume_up,
+                                      color: buttonHistoryColor,
+                                      size: 30,
+                                    ),
+                                  );
+                                }
+                              })
                         ],
                       ),
               ],
@@ -81,5 +162,6 @@ class ChatWidget extends StatelessWidget {
         ),
       ],
     );
+    ;
   }
 }

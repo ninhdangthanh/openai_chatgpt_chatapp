@@ -35,7 +35,7 @@ class EditConversaion extends StatelessWidget {
                 child: Text(
                   "Edit Conversation",
                   style: TextStyle(
-                      color: Colors.white,
+                      color: textHeaderColor,
                       fontSize: 28,
                       fontWeight: FontWeight.bold),
                 ),
@@ -46,19 +46,19 @@ class EditConversaion extends StatelessWidget {
                     child: Container(
                       decoration: BoxDecoration(
                           border: Border.all(
-                            color: Colors.white,
+                            color: textHeaderColor,
                             width: 1.0,
                           ),
                           borderRadius: BorderRadius.circular(16)),
                       padding:
                           EdgeInsets.symmetric(horizontal: 10, vertical: 12),
                       child: TextField(
-                        style: const TextStyle(color: Colors.white),
+                        style: TextStyle(color: textHeaderColor),
                         controller: nameConvText,
                         onSubmitted: (value) async {},
-                        decoration: const InputDecoration.collapsed(
+                        decoration: InputDecoration.collapsed(
                             hintText: "Edit conversation",
-                            hintStyle: TextStyle(color: Colors.grey)),
+                            hintStyle: TextStyle(color: textInTextfield)),
                       ),
                     ),
                   ),
@@ -74,14 +74,14 @@ class EditConversaion extends StatelessWidget {
                         child: SizedBox(
                       height: 48,
                       child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            primary: Colors.green[700]),
+                        style:
+                            ElevatedButton.styleFrom(primary: buttonGreenColor),
                         onPressed: () async {
                           await saveUpdateConversation();
                           await loadData();
                           await hideEditConversation();
                         },
-                        child: const Text(
+                        child: Text(
                           "Save",
                           style: TextStyle(fontSize: 16, color: Colors.white),
                         ),
@@ -92,12 +92,12 @@ class EditConversaion extends StatelessWidget {
                         child: SizedBox(
                       height: 48,
                       child: ElevatedButton(
-                        style:
-                            ElevatedButton.styleFrom(primary: Colors.pink[600]),
+                        style: ElevatedButton.styleFrom(
+                            primary: buttonCancleColor),
                         onPressed: () {
                           hideEditConversation();
                         },
-                        child: const Text("Cancel",
+                        child: Text("Cancel",
                             style:
                                 TextStyle(fontSize: 16, color: Colors.white)),
                       ),

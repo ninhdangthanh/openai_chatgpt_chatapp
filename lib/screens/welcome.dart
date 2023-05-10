@@ -1,3 +1,4 @@
+import 'package:ChatGPT/constants/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:ChatGPT/providers/conversation_provider.dart';
 import 'package:provider/provider.dart';
@@ -38,7 +39,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
     var conversationProvider = Provider.of<ConversationProvider>(context);
 
     return Scaffold(
-        backgroundColor: Colors.black,
+        backgroundColor: backgroundColor,
         body: SafeArea(
           child: Center(
             child: Column(
@@ -51,7 +52,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                         Text(
                           "ChatGPT",
                           style: TextStyle(
-                              color: Colors.white,
+                              color: textHeaderColor,
                               fontSize: 50,
                               fontWeight: FontWeight.bold),
                         ),
@@ -61,7 +62,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                         Text(
                           "belongs to OpenAI",
                           style: TextStyle(
-                            color: Color(0xFF8A8A8A),
+                            color: childHeaderColor,
                             fontSize: 20,
                           ),
                         ),
@@ -73,7 +74,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                     'assets/images/openai_logo_purple.png',
                     width: 200,
                     height: 200,
-                    color: Colors.green[900],
+                    color: buttonGreenColor,
                   ),
                 ),
                 Expanded(child: Container()),
@@ -81,7 +82,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                   width: screenWidth - 100,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(12.0),
-                    color: Colors.green[900],
+                    color: buttonGreenColor,
                   ),
                   child: TextButton(
                     onPressed: () {
@@ -91,10 +92,11 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                         '/chat-screen',
                       );
                     },
-                    child: const Center(
+                    child: Center(
                       child: Text(
                         "New Chat",
-                        style: TextStyle(color: Colors.white, fontSize: 24),
+                        style:
+                            TextStyle(color: welcomButtomColor, fontSize: 24),
                       ),
                     ),
                   ),
@@ -106,7 +108,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                   width: screenWidth - 100,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(12.0),
-                    color: Colors.blue[800],
+                    color: buttonHistoryColor,
                   ),
                   child: TextButton(
                     onPressed: () {
@@ -119,7 +121,8 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                     child: Center(
                       child: Text(
                         "History",
-                        style: TextStyle(color: Colors.white, fontSize: 24),
+                        style:
+                            TextStyle(color: welcomButtomColor, fontSize: 24),
                       ),
                     ),
                   ),

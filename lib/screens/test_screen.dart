@@ -1,3 +1,4 @@
+import 'package:ChatGPT/constants/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:ChatGPT/models/chat_model.dart';
 import 'package:ChatGPT/models/conversation_model.dart';
@@ -46,7 +47,9 @@ class _TestScreenState extends State<TestScreen> {
           Text(
             "Test",
             style: TextStyle(
-                fontSize: 30, fontWeight: FontWeight.bold, color: Colors.white),
+                fontSize: 30,
+                fontWeight: FontWeight.bold,
+                color: textHeaderColor),
           ),
           TextButton(
               onPressed: () {

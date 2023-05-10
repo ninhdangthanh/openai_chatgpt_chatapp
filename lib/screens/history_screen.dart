@@ -57,9 +57,9 @@ class _HistoryScreenState extends State<HistoryScreen> {
 
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Colors.black,
+        backgroundColor: backgroundColor,
         appBar: AppBar(
-          backgroundColor: Color(0xFF151515),
+          backgroundColor: cardColor,
           leading: GestureDetector(
             onTap: () {
               hideEditConversation();
@@ -84,7 +84,10 @@ class _HistoryScreenState extends State<HistoryScreen> {
             const SizedBox(
               width: 10,
             ),
-            const Text("History Chat")
+            Text(
+              "History Chat",
+              style: TextStyle(color: welcomButtomColor),
+            )
           ]),
         ),
         body: SafeArea(
@@ -108,12 +111,12 @@ class _HistoryScreenState extends State<HistoryScreen> {
                                 return Card(
                                   color: edit_conversation?.id ==
                                           conversations[index].id
-                                      ? Color(0xFF293200)
+                                      ? editHistoryColor
                                       : (conversations[index].id ==
                                               conversationProvider
                                                   .getConversation?.id
-                                          ? Color(0xFF3C3C3C)
-                                          : Color(0xFF191919)),
+                                          ? selectHistoryColor
+                                          : normalHistoryColor),
                                   child: ListTile(
                                     onTap: () async {
                                       // Handle onTap action here
@@ -135,7 +138,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                                         '${index + 1}',
                                         style: TextStyle(
                                             fontWeight: FontWeight.bold,
-                                            color: Colors.white),
+                                            color: textHeaderColor),
                                       ),
                                       backgroundColor: edit_conversation?.id ==
                                               conversations[index].id
@@ -149,14 +152,14 @@ class _HistoryScreenState extends State<HistoryScreen> {
                                     title: Text(
                                       conversations[index].name,
                                       style: TextStyle(
-                                          color: Colors.white, fontSize: 20),
+                                          color: textHeaderColor, fontSize: 20),
                                     ),
                                     trailing: conversations[index].id ==
                                             conversationProvider
                                                 .getConversation?.id
                                         ? SizedBox.shrink()
                                         : PopupMenuButton(
-                                            color: Colors.white,
+                                            color: textHeaderColor,
                                             onSelected: (value) {
                                               if (value == 'edit') {
                                                 //open edit page
@@ -179,11 +182,19 @@ class _HistoryScreenState extends State<HistoryScreen> {
                                             itemBuilder: (context) {
                                               return [
                                                 PopupMenuItem(
-                                                  child: Text("Edit"),
+                                                  child: Text(
+                                                    "Edit",
+                                                    style: TextStyle(
+                                                        color: backgroundColor),
+                                                  ),
                                                   value: 'edit',
                                                 ),
                                                 PopupMenuItem(
-                                                  child: Text("Delete"),
+                                                  child: Text(
+                                                    "Delete",
+                                                    style: TextStyle(
+                                                        color: backgroundColor),
+                                                  ),
                                                   value: 'delete',
                                                 )
                                               ];
