@@ -4,6 +4,9 @@ import 'package:ChatGPT/constants/constants.dart';
 import 'package:ChatGPT/services/assets_manager.dart';
 import 'package:ChatGPT/widgets/text_widget.dart';
 import 'package:flutter_tts/flutter_tts.dart';
+import 'package:provider/provider.dart';
+
+import '../providers/colors_provider.dart';
 
 class ChatWidget extends StatefulWidget {
   final String msg;
@@ -81,10 +84,14 @@ class ChatWidgetState extends State<ChatWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final myColorsProvider = Provider.of<MyColorsProvider>(context);
+
     return Column(
       children: [
         Material(
-          color: widget.chatIndex == 0 ? scaffoldBackgroundColor : cardColor,
+          color: widget.chatIndex == 0
+              ? myColorsProvider.scaffoldBackgroundColor
+              : myColorsProvider.cardColor,
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Row(
@@ -108,7 +115,7 @@ class ChatWidgetState extends State<ChatWidget> {
                       : widget.shouldAnimate
                           ? DefaultTextStyle(
                               style: TextStyle(
-                                  color: textHeaderColor,
+                                  color: myColorsProvider.textHeaderColor,
                                   fontWeight: FontWeight.w700,
                                   fontSize: 16),
                               child: Text(widget.msg.trim()),
@@ -116,7 +123,7 @@ class ChatWidgetState extends State<ChatWidget> {
                           : Text(
                               widget.msg.trim(),
                               style: TextStyle(
-                                  color: textHeaderColor,
+                                  color: myColorsProvider.textHeaderColor,
                                   fontWeight: FontWeight.w700,
                                   fontSize: 16),
                             ),
@@ -148,7 +155,8 @@ class ChatWidgetState extends State<ChatWidget> {
                                     },
                                     child: Icon(
                                       Icons.volume_up,
-                                      color: buttonHistoryColor,
+                                      color:
+                                          myColorsProvider.buttonHistoryColor,
                                       size: 30,
                                     ),
                                   );

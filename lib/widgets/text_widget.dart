@@ -1,5 +1,8 @@
 import 'package:ChatGPT/constants/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../providers/colors_provider.dart';
 
 class TextWidget extends StatelessWidget {
   const TextWidget(
@@ -16,11 +19,12 @@ class TextWidget extends StatelessWidget {
   final FontWeight? fontWeight;
   @override
   Widget build(BuildContext context) {
+    final myColorsProvider = Provider.of<MyColorsProvider>(context);
     return Text(
       label,
       // textAlign: TextAlign.justify,
       style: TextStyle(
-        color: color ?? textHeaderColor,
+        color: color ?? myColorsProvider.textHeaderColor,
         fontSize: fontSize,
         fontWeight: fontWeight ?? FontWeight.w500,
       ),

@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 
 import '../constants/constants.dart';
 import '../models/models_model.dart';
+import '../providers/colors_provider.dart';
 
 class ModelsDrowDownWidget extends StatefulWidget {
   const ModelsDrowDownWidget({super.key});
@@ -22,7 +23,9 @@ class _ModelsDrowDownWidgetState extends State<ModelsDrowDownWidget> {
   @override
   Widget build(BuildContext context) {
     final modelsProvider = Provider.of<ModelsProvider>(context, listen: false);
+    final myColorsProvider = Provider.of<MyColorsProvider>(context);
     currentModel = modelsProvider.getCurrentModel;
+
     return FutureBuilder<List<ModelsModel>>(
         future: modelsProvider.getAllModels(),
         builder: (context, snapshot) {
@@ -45,8 +48,8 @@ class _ModelsDrowDownWidgetState extends State<ModelsDrowDownWidget> {
               ? const SizedBox.shrink()
               : FittedBox(
                   child: DropdownButton(
-                    dropdownColor: scaffoldBackgroundColor,
-                    iconEnabledColor: textHeaderColor,
+                    dropdownColor: myColorsProvider.scaffoldBackgroundColor,
+                    iconEnabledColor: myColorsProvider.textHeaderColor,
                     items: List<DropdownMenuItem<String>>.generate(
                         snapshot.data!.length,
                         (index) => DropdownMenuItem(

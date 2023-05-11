@@ -9,6 +9,7 @@ import 'package:provider/provider.dart';
 import '../constants/constants.dart';
 import '../database/database.dart';
 import '../models/conversation_model.dart';
+import '../providers/colors_provider.dart';
 import '../providers/conversation_provider.dart';
 import '../services/assets_manager.dart';
 import '../services/services.dart';
@@ -49,6 +50,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
   Widget build(BuildContext context) {
     var conversationProvider = Provider.of<ConversationProvider>(context);
     var chatProvider = Provider.of<ChatProvider>(context);
+    final myColorsProvider = Provider.of<MyColorsProvider>(context);
     TextEditingController nameTextController = TextEditingController();
 
     final Map<String, dynamic>? arguments =
@@ -57,9 +59,9 @@ class _HistoryScreenState extends State<HistoryScreen> {
 
     return SafeArea(
       child: Scaffold(
-        backgroundColor: backgroundColor,
+        backgroundColor: myColorsProvider.backgroundColor,
         appBar: AppBar(
-          backgroundColor: cardColor,
+          backgroundColor: myColorsProvider.cardColor,
           leading: GestureDetector(
             onTap: () {
               hideEditConversation();
@@ -86,7 +88,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
             ),
             Text(
               "History Chat",
-              style: TextStyle(color: welcomButtomColor),
+              style: TextStyle(color: myColorsProvider.welcomButtomColor),
             )
           ]),
         ),
@@ -111,12 +113,13 @@ class _HistoryScreenState extends State<HistoryScreen> {
                                 return Card(
                                   color: edit_conversation?.id ==
                                           conversations[index].id
-                                      ? editHistoryColor
+                                      ? myColorsProvider.editHistoryColor
                                       : (conversations[index].id ==
                                               conversationProvider
                                                   .getConversation?.id
-                                          ? selectHistoryColor
-                                          : normalHistoryColor),
+                                          ? myColorsProvider.selectHistoryColor
+                                          : myColorsProvider
+                                              .normalHistoryColor),
                                   child: ListTile(
                                     onTap: () async {
                                       // Handle onTap action here
@@ -138,7 +141,8 @@ class _HistoryScreenState extends State<HistoryScreen> {
                                         '${index + 1}',
                                         style: TextStyle(
                                             fontWeight: FontWeight.bold,
-                                            color: textHeaderColor),
+                                            color: myColorsProvider
+                                                .textHeaderColor),
                                       ),
                                       backgroundColor: edit_conversation?.id ==
                                               conversations[index].id
@@ -152,14 +156,17 @@ class _HistoryScreenState extends State<HistoryScreen> {
                                     title: Text(
                                       conversations[index].name,
                                       style: TextStyle(
-                                          color: textHeaderColor, fontSize: 20),
+                                          color:
+                                              myColorsProvider.textHeaderColor,
+                                          fontSize: 20),
                                     ),
                                     trailing: conversations[index].id ==
                                             conversationProvider
                                                 .getConversation?.id
                                         ? SizedBox.shrink()
                                         : PopupMenuButton(
-                                            color: textHeaderColor,
+                                            color: myColorsProvider
+                                                .textHeaderColor,
                                             onSelected: (value) {
                                               if (value == 'edit') {
                                                 //open edit page
@@ -185,7 +192,8 @@ class _HistoryScreenState extends State<HistoryScreen> {
                                                   child: Text(
                                                     "Edit",
                                                     style: TextStyle(
-                                                        color: backgroundColor),
+                                                        color: myColorsProvider
+                                                            .backgroundColor),
                                                   ),
                                                   value: 'edit',
                                                 ),
@@ -193,7 +201,8 @@ class _HistoryScreenState extends State<HistoryScreen> {
                                                   child: Text(
                                                     "Delete",
                                                     style: TextStyle(
-                                                        color: backgroundColor),
+                                                        color: myColorsProvider
+                                                            .backgroundColor),
                                                   ),
                                                   value: 'delete',
                                                 )

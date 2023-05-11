@@ -7,6 +7,7 @@ import 'package:ChatGPT/services/history_services.dart';
 import 'package:provider/provider.dart';
 
 import '../database/database.dart';
+import '../providers/colors_provider.dart';
 
 class TestScreen extends StatefulWidget {
   const TestScreen({super.key});
@@ -32,6 +33,7 @@ class _TestScreenState extends State<TestScreen> {
   @override
   Widget build(BuildContext context) {
     final chatProvider = Provider.of<ConversationProvider>(context);
+    final myColorsProvider = Provider.of<MyColorsProvider>(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -49,7 +51,7 @@ class _TestScreenState extends State<TestScreen> {
             style: TextStyle(
                 fontSize: 30,
                 fontWeight: FontWeight.bold,
-                color: textHeaderColor),
+                color: myColorsProvider.textHeaderColor),
           ),
           TextButton(
               onPressed: () {

@@ -1,3 +1,4 @@
+import 'package:ChatGPT/providers/colors_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:ChatGPT/providers/chat_provider.dart';
 import 'package:ChatGPT/providers/conversation_provider.dart';
@@ -20,33 +21,49 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(
-          create: (_) => ModelsProvider(),
-        ),
-        ChangeNotifierProvider(
-          create: (_) => ChatProvider(),
-        ),
-        ChangeNotifierProvider(
-          create: (_) => ConversationProvider(),
-        ),
-      ],
-      child: MaterialApp(
-        title: 'Flutter ChatBOT',
-        debugShowCheckedModeBanner: false,
-        initialRoute: '/',
-        routes: {
-          '/history-screen': (context) => HistoryScreen(),
-          '/chat-screen': (context) => ChatScreen(),
-        },
-        theme: ThemeData(
-            scaffoldBackgroundColor: scaffoldBackgroundColor,
-            appBarTheme: AppBarTheme(
-              color: cardColor,
-            )),
-        home: WelcomeScreen(),
+    return MultiProvider(providers: [
+      ChangeNotifierProvider(
+        create: (_) => ModelsProvider(),
       ),
+      ChangeNotifierProvider(
+        create: (_) => ChatProvider(),
+      ),
+      ChangeNotifierProvider(
+        create: (_) => ConversationProvider(),
+      ),
+      ChangeNotifierProvider(
+        create: (_) => MyColorsProvider(),
+      ),
+    ], child: MyAppMaterial());
+  }
+}
+
+class MyAppMaterial extends StatefulWidget {
+  const MyAppMaterial({super.key});
+
+  @override
+  State<MyAppMaterial> createState() => _MyAppMaterialState();
+}
+
+class _MyAppMaterialState extends State<MyAppMaterial> {
+  @override
+  Widget build(BuildContext context) {
+    final myColorsProvider = Provider.of<MyColorsProvider>(context);
+
+    return MaterialApp(
+      title: 'Flutter ChatBOT',
+      debugShowCheckedModeBanner: false,
+      initialRoute: '/',
+      routes: {
+        '/history-screen': (context) => HistoryScreen(),
+        '/chat-screen': (context) => ChatScreen(),
+      },
+      theme: ThemeData(
+          scaffoldBackgroundColor: myColorsProvider.scaffoldBackgroundColor,
+          appBarTheme: AppBarTheme(
+            color: myColorsProvider.cardColor,
+          )),
+      home: WelcomeScreen(),
     );
   }
 }

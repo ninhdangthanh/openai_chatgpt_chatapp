@@ -11,6 +11,7 @@ import 'package:ChatGPT/widgets/text_widget.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/chat_provider.dart';
+import '../providers/colors_provider.dart';
 import '../providers/conversation_provider.dart';
 import '../services/history_services.dart';
 import '../services/services.dart';
@@ -39,6 +40,12 @@ class _ChatScreenState extends State<ChatScreen> {
     });
   }
 
+  void _stopChildWidget() {
+    _childWidgetKeys.forEach((key) {
+      key.currentState?.stop();
+    });
+  }
+
   @override
   void initState() {
     _listScrollController = ScrollController();
@@ -57,107 +64,121 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 
   // List<ChatModel> chatList = [];
+
+  Future<bool> _onBackPressed() {
+    return Future.value(false);
+  }
+
   @override
   Widget build(BuildContext context) {
     final modelsProvider = Provider.of<ModelsProvider>(context);
     final chatProvider = Provider.of<ChatProvider>(context);
     var conversationProvider = Provider.of<ConversationProvider>(context);
+    final myColorsProvider = Provider.of<MyColorsProvider>(context);
 
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: backgroundColor,
-        appBar: AppBar(
-          backgroundColor: cardColor,
-          elevation: 2,
-          leading: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Image.asset(AssetsManager.openaiLogo),
-          ),
-          title: Text(
-            "ChatGPT",
-            style: TextStyle(color: welcomButtomColor),
-          ),
-          actions: [
-            IconButton(
-              onPressed: () async {
-                await Services.showModalSheet(
-                    context: context,
-                    chatProvider: chatProvider,
-                    conversationProvider: conversationProvider);
-              },
-              icon: Icon(Icons.more_vert_rounded, color: textHeaderColor),
+    return WillPopScope(
+      onWillPop: _onBackPressed,
+      child: SafeArea(
+        child: Scaffold(
+          backgroundColor: myColorsProvider.backgroundColor,
+          appBar: AppBar(
+            backgroundColor: myColorsProvider.cardColor,
+            elevation: 2,
+            leading: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Image.asset(AssetsManager.openaiLogo),
             ),
-          ],
-        ),
-        body: SafeArea(
-          child: Column(
-            children: [
-              Flexible(
-                child: ListView.builder(
-                    controller: _listScrollController,
-                    itemCount:
-                        chatProvider.getChatList.length, //chatList.length,
-                    itemBuilder: (context, index) {
-                      return ChatWidget(
-                        key: _childWidgetKeys[index],
-                        changeSpeaking: changeSpeaking,
-                        isSpeaking: isSpeaking,
-                        msg: chatProvider
-                            .getChatList[index].msg, // chatList[index].msg,
-                        chatIndex: chatProvider.getChatList[index]
-                            .chatIndex, //chatList[index].chatIndex,
-                        shouldAnimate:
-                            chatProvider.getChatList.length - 1 == index,
-                      );
-                    }),
-              ),
-              if (_isTyping) ...[
-                SpinKitThreeBounce(
-                  color: textHeaderColor,
-                  size: 18,
-                ),
-              ],
-              const SizedBox(
-                height: 15,
-              ),
-              Material(
-                color: cardColor,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: TextField(
-                          focusNode: focusNode,
-                          style: TextStyle(color: textHeaderColor),
-                          controller: textEditingController,
-                          onSubmitted: (value) async {
-                            await sendMessageFCT(
-                                conversationProvider: conversationProvider,
-                                modelsProvider: modelsProvider,
-                                chatProvider: chatProvider);
-                          },
-                          decoration: InputDecoration.collapsed(
-                              hintText: "How can I help you",
-                              hintStyle: TextStyle(color: textInTextfield)),
-                        ),
-                      ),
-                      IconButton(
-                          onPressed: () async {
-                            await sendMessageFCT(
-                                modelsProvider: modelsProvider,
-                                chatProvider: chatProvider,
-                                conversationProvider: conversationProvider);
-                          },
-                          icon: Icon(
-                            Icons.send,
-                            color: Colors.green[700],
-                          ))
-                    ],
-                  ),
-                ),
+            title: Text(
+              "ChatGPT",
+              style: TextStyle(color: myColorsProvider.welcomButtomColor),
+            ),
+            actions: [
+              IconButton(
+                onPressed: () async {
+                  changeSpeakingWhenNavigate();
+                  await Services.showModalSheet(
+                      context: context,
+                      chatProvider: chatProvider,
+                      myColorsProvider: myColorsProvider,
+                      conversationProvider: conversationProvider);
+                },
+                icon: Icon(Icons.more_vert_rounded,
+                    color: myColorsProvider.textHeaderColor),
               ),
             ],
+          ),
+          body: SafeArea(
+            child: Column(
+              children: [
+                Flexible(
+                  child: ListView.builder(
+                      controller: _listScrollController,
+                      itemCount:
+                          chatProvider.getChatList.length, //chatList.length,
+                      itemBuilder: (context, index) {
+                        return ChatWidget(
+                          key: _childWidgetKeys[index],
+                          changeSpeaking: changeSpeaking,
+                          isSpeaking: isSpeaking,
+                          msg: chatProvider
+                              .getChatList[index].msg, // chatList[index].msg,
+                          chatIndex: chatProvider.getChatList[index]
+                              .chatIndex, //chatList[index].chatIndex,
+                          shouldAnimate:
+                              chatProvider.getChatList.length - 1 == index,
+                        );
+                      }),
+                ),
+                if (_isTyping) ...[
+                  SpinKitThreeBounce(
+                    color: myColorsProvider.textHeaderColor,
+                    size: 18,
+                  ),
+                ],
+                const SizedBox(
+                  height: 15,
+                ),
+                Material(
+                  color: myColorsProvider.cardColor,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: TextField(
+                            focusNode: focusNode,
+                            style: TextStyle(
+                                color: myColorsProvider.textHeaderColor),
+                            controller: textEditingController,
+                            onSubmitted: (value) async {
+                              await sendMessageFCT(
+                                  conversationProvider: conversationProvider,
+                                  modelsProvider: modelsProvider,
+                                  chatProvider: chatProvider);
+                            },
+                            decoration: InputDecoration.collapsed(
+                                hintText: "How can I help you",
+                                hintStyle: TextStyle(
+                                    color: myColorsProvider.textInTextfield)),
+                          ),
+                        ),
+                        IconButton(
+                            onPressed: () async {
+                              await sendMessageFCT(
+                                  modelsProvider: modelsProvider,
+                                  chatProvider: chatProvider,
+                                  conversationProvider: conversationProvider);
+                            },
+                            icon: Icon(
+                              Icons.send,
+                              color: Colors.green[700],
+                            ))
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -243,5 +264,13 @@ class _ChatScreenState extends State<ChatScreen> {
       isSpeaking = !isSpeaking;
     });
     _toggleChildWidget();
+  }
+
+  void changeSpeakingWhenNavigate() {
+    setState(() {
+      isSpeaking = false;
+    });
+    _toggleChildWidget();
+    _stopChildWidget();
   }
 }

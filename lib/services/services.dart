@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 import '../constants/constants.dart';
 import '../database/database.dart';
 import '../providers/chat_provider.dart';
+import '../providers/colors_provider.dart';
 
 class Services {
   static final DatabaseHelper _databaseHelper = DatabaseHelper();
@@ -15,7 +16,8 @@ class Services {
   static Future<void> showModalSheet(
       {required BuildContext context,
       required ChatProvider chatProvider,
-      required ConversationProvider conversationProvider}) async {
+      required ConversationProvider conversationProvider,
+      required MyColorsProvider myColorsProvider}) async {
     double screenWidth = MediaQuery.of(context).size.width;
 
     await showModalBottomSheet(
@@ -24,7 +26,7 @@ class Services {
             top: Radius.circular(20),
           ),
         ),
-        backgroundColor: scaffoldBackgroundColor,
+        backgroundColor: myColorsProvider.scaffoldBackgroundColor,
         context: context,
         builder: (context) {
           return Padding(
@@ -32,6 +34,26 @@ class Services {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
+                Container(
+                  width: screenWidth - 100,
+                  padding: EdgeInsets.only(bottom: 20),
+                  child: Row(
+                    children: [
+                      Text(
+                        "Dark mode: ",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 28,
+                            color: myColorsProvider.textHeaderColor),
+                      ),
+                      Expanded(child: Container()),
+                      Switch(
+                        value: myColorsProvider.isDarkMode,
+                        onChanged: (value) => {myColorsProvider.changeMode()},
+                      ),
+                    ],
+                  ),
+                ),
                 Container(
                   width: screenWidth - 100,
                   decoration: BoxDecoration(

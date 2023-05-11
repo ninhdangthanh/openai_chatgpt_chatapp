@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:ChatGPT/models/conversation_model.dart';
+import 'package:provider/provider.dart';
 
 import '../constants/constants.dart';
 import '../database/database.dart';
+import '../providers/colors_provider.dart';
 
 class EditConversaion extends StatelessWidget {
   final DatabaseHelper _databaseHelper = DatabaseHelper();
@@ -21,10 +23,11 @@ class EditConversaion extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final myColorsProvider = Provider.of<MyColorsProvider>(context);
     nameConvText.text = conversation.name;
 
     return Material(
-      color: cardColor,
+      color: myColorsProvider.cardColor,
       child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
@@ -35,7 +38,7 @@ class EditConversaion extends StatelessWidget {
                 child: Text(
                   "Edit Conversation",
                   style: TextStyle(
-                      color: textHeaderColor,
+                      color: myColorsProvider.textHeaderColor,
                       fontSize: 28,
                       fontWeight: FontWeight.bold),
                 ),
@@ -46,19 +49,21 @@ class EditConversaion extends StatelessWidget {
                     child: Container(
                       decoration: BoxDecoration(
                           border: Border.all(
-                            color: textHeaderColor,
+                            color: myColorsProvider.textHeaderColor,
                             width: 1.0,
                           ),
                           borderRadius: BorderRadius.circular(16)),
                       padding:
                           EdgeInsets.symmetric(horizontal: 10, vertical: 12),
                       child: TextField(
-                        style: TextStyle(color: textHeaderColor),
+                        style:
+                            TextStyle(color: myColorsProvider.textHeaderColor),
                         controller: nameConvText,
                         onSubmitted: (value) async {},
                         decoration: InputDecoration.collapsed(
                             hintText: "Edit conversation",
-                            hintStyle: TextStyle(color: textInTextfield)),
+                            hintStyle: TextStyle(
+                                color: myColorsProvider.textInTextfield)),
                       ),
                     ),
                   ),
@@ -74,8 +79,8 @@ class EditConversaion extends StatelessWidget {
                         child: SizedBox(
                       height: 48,
                       child: ElevatedButton(
-                        style:
-                            ElevatedButton.styleFrom(primary: buttonGreenColor),
+                        style: ElevatedButton.styleFrom(
+                            primary: myColorsProvider.buttonGreenColor),
                         onPressed: () async {
                           await saveUpdateConversation();
                           await loadData();
@@ -93,7 +98,7 @@ class EditConversaion extends StatelessWidget {
                       height: 48,
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                            primary: buttonCancleColor),
+                            primary: myColorsProvider.buttonCancleColor),
                         onPressed: () {
                           hideEditConversation();
                         },

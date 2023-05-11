@@ -4,6 +4,7 @@ import 'package:ChatGPT/providers/conversation_provider.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/chat_provider.dart';
+import '../providers/colors_provider.dart';
 import 'history_screen.dart';
 
 class WelcomeScreen extends StatefulWidget {
@@ -36,103 +37,113 @@ class _WelcomeScreenState extends State<WelcomeScreen>
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
     final chatProvider = Provider.of<ChatProvider>(context);
+    final myColorsProvider = Provider.of<MyColorsProvider>(context);
     var conversationProvider = Provider.of<ConversationProvider>(context);
 
     return Scaffold(
-        backgroundColor: backgroundColor,
-        body: SafeArea(
-          child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Padding(
-                    padding: EdgeInsets.only(top: 80, bottom: 60),
-                    child: Column(
-                      children: [
-                        Text(
-                          "ChatGPT",
-                          style: TextStyle(
-                              color: textHeaderColor,
-                              fontSize: 50,
-                              fontWeight: FontWeight.bold),
-                        ),
-                        SizedBox(
-                          height: 6,
-                        ),
-                        Text(
-                          "belongs to OpenAI",
-                          style: TextStyle(
-                            color: childHeaderColor,
-                            fontSize: 20,
-                          ),
-                        ),
-                      ],
-                    )),
-                RotationTransition(
-                  turns: Tween(begin: 0.0, end: 1.0).animate(_controller),
-                  child: Image.asset(
-                    'assets/images/openai_logo_purple.png',
-                    width: 200,
-                    height: 200,
-                    color: buttonGreenColor,
-                  ),
-                ),
-                Expanded(child: Container()),
-                Container(
-                  width: screenWidth - 100,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(12.0),
-                    color: buttonGreenColor,
-                  ),
-                  child: TextButton(
-                    onPressed: () {
-                      chatProvider.generateNewChat(conversationProvider);
-                      Navigator.pushNamed(
-                        context,
-                        '/chat-screen',
-                      );
-                    },
-                    child: Center(
-                      child: Text(
-                        "New Chat",
-                        style:
-                            TextStyle(color: welcomButtomColor, fontSize: 24),
+      backgroundColor: myColorsProvider.backgroundColor,
+      body: SafeArea(
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Padding(
+                  padding: EdgeInsets.only(top: 80, bottom: 60),
+                  child: Column(
+                    children: [
+                      Text(
+                        "ChatGPT",
+                        style: TextStyle(
+                            color: myColorsProvider.textHeaderColor,
+                            fontSize: 50,
+                            fontWeight: FontWeight.bold),
                       ),
+                      SizedBox(
+                        height: 6,
+                      ),
+                      Text(
+                        "belongs to OpenAI",
+                        style: TextStyle(
+                          color: myColorsProvider.childHeaderColor,
+                          fontSize: 20,
+                        ),
+                      ),
+                    ],
+                  )),
+              RotationTransition(
+                turns: Tween(begin: 0.0, end: 1.0).animate(_controller),
+                child: Image.asset(
+                  'assets/images/openai_logo_purple.png',
+                  width: 200,
+                  height: 200,
+                  color: myColorsProvider.buttonGreenColor,
+                ),
+              ),
+              Expanded(child: Container()),
+              Container(
+                width: screenWidth - 100,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(12.0),
+                  color: myColorsProvider.buttonGreenColor,
+                ),
+                child: TextButton(
+                  onPressed: () {
+                    chatProvider.generateNewChat(conversationProvider);
+                    Navigator.pushNamed(
+                      context,
+                      '/chat-screen',
+                    );
+                  },
+                  child: Center(
+                    child: Text(
+                      "New Chat",
+                      style: TextStyle(
+                          color: myColorsProvider.welcomButtomColor,
+                          fontSize: 24),
                     ),
                   ),
                 ),
-                SizedBox(
-                  height: 14,
+              ),
+              SizedBox(
+                height: 14,
+              ),
+              Container(
+                width: screenWidth - 100,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(12.0),
+                  color: myColorsProvider.buttonHistoryColor,
                 ),
-                Container(
-                  width: screenWidth - 100,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(12.0),
-                    color: buttonHistoryColor,
-                  ),
-                  child: TextButton(
-                    onPressed: () {
-                      Navigator.pushNamed(
-                        context,
-                        '/history-screen',
-                        arguments: {'prevPage': '/'},
-                      );
-                    },
-                    child: Center(
-                      child: Text(
-                        "History",
-                        style:
-                            TextStyle(color: welcomButtomColor, fontSize: 24),
-                      ),
+                child: TextButton(
+                  onPressed: () {
+                    Navigator.pushNamed(
+                      context,
+                      '/history-screen',
+                      arguments: {'prevPage': '/'},
+                    );
+                  },
+                  child: Center(
+                    child: Text(
+                      "History",
+                      style: TextStyle(
+                          color: myColorsProvider.welcomButtomColor,
+                          fontSize: 24),
                     ),
                   ),
                 ),
-                SizedBox(
-                  height: 100,
-                )
-              ],
-            ),
+              ),
+              SizedBox(
+                height: 100,
+              )
+            ],
           ),
-        ));
+        ),
+      ),
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: () {
+      //     myColorsProvider.changeMode();
+      //   },
+      //   child: Icon(Icons.color_lens),
+      // ),
+    );
   }
 }
