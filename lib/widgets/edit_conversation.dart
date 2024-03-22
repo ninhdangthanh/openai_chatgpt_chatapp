@@ -80,7 +80,7 @@ class EditConversaion extends StatelessWidget {
                       height: 48,
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                            primary: myColorsProvider.buttonGreenColor),
+                            backgroundColor: myColorsProvider.buttonGreenColor),
                         onPressed: () async {
                           await saveUpdateConversation();
                           await loadData();
@@ -98,7 +98,7 @@ class EditConversaion extends StatelessWidget {
                       height: 48,
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                            primary: myColorsProvider.buttonCancleColor),
+                            backgroundColor: myColorsProvider.buttonCancleColor),
                         onPressed: () {
                           hideEditConversation();
                         },

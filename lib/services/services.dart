@@ -142,7 +142,7 @@ class Services {
                       height: 48,
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                            primary: Colors.green[800]),
+                            backgroundColor: Colors.green[800]),
                         onPressed: () async {
                           await _databaseHelper.deleteConv(conversation);
                           Navigator.of(context).pop();
@@ -160,7 +160,7 @@ class Services {
                       height: 48,
                       child: ElevatedButton(
                         style:
-                            ElevatedButton.styleFrom(primary: Colors.pink[700]),
+                            ElevatedButton.styleFrom(backgroundColor: Colors.pink[700]),
                         onPressed: () {
                           Navigator.of(context).pop();
                         },
