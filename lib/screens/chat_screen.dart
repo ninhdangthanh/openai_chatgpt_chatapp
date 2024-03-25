@@ -86,11 +86,26 @@ class _ChatScreenState extends State<ChatScreen> {
             elevation: 2,
             leading: Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Image.asset(AssetsManager.openaiLogo),
+              child: Image.asset(
+                  'assets/images/openai_logo_purple.png',
+                  color: const Color.fromARGB(255, 8, 24, 244),
+                ),
             ),
-            title: Text(
-              "ChatGPT",
-              style: TextStyle(color: myColorsProvider.welcomButtomColor),
+            title: Row(
+              children: [
+                Text(
+                  "MYA",
+                  style: TextStyle(fontSize: 24, color: myColorsProvider.buttonHistoryColor, fontWeight: FontWeight.bold),
+                ),
+                Text(
+                  "bot",
+                  style: TextStyle(color: myColorsProvider.welcomButtomColor, fontSize: 16),
+                ),
+                Text(
+                  "AI",
+                  style: TextStyle(color: myColorsProvider.welcomButtomColor, fontSize: 18),
+                )
+              ],
             ),
             actions: [
               IconButton(
@@ -171,7 +186,7 @@ class _ChatScreenState extends State<ChatScreen> {
                             },
                             icon: Icon(
                               Icons.send,
-                              color: Colors.green[700],
+                              color: myColorsProvider.buttonGreenColor,
                             ))
                       ],
                     ),

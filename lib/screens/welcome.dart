@@ -51,22 +51,37 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                   padding: EdgeInsets.only(top: 80, bottom: 60),
                   child: Column(
                     children: [
-                      Text(
-                        "ChatGPT",
-                        style: TextStyle(
-                            color: myColorsProvider.textHeaderColor,
-                            fontSize: 50,
-                            fontWeight: FontWeight.bold),
+                      Container(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                                  Text(
+                                    "MYA",
+                                    style: TextStyle(
+                                        color: myColorsProvider.buttonHistoryColor,
+                                        fontSize: 55,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  Text(
+                                    "bot",
+                                    style: TextStyle(
+                                        color: myColorsProvider.textHeaderColor,
+                                        fontSize: 42,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  Text(
+                                    "AI",
+                                    style: TextStyle(
+                                        color: myColorsProvider.textHeaderColor,
+                                        fontSize: 50,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                          ],
+                        )
                       ),
                       SizedBox(
                         height: 6,
-                      ),
-                      Text(
-                        "belongs to OpenAI",
-                        style: TextStyle(
-                          color: myColorsProvider.childHeaderColor,
-                          fontSize: 20,
-                        ),
                       ),
                     ],
                   )),
@@ -76,7 +91,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                   'assets/images/openai_logo_purple.png',
                   width: 200,
                   height: 200,
-                  color: myColorsProvider.buttonGreenColor,
+                  color: const Color.fromARGB(255, 8, 24, 244),
                 ),
               ),
               Expanded(child: Container()),

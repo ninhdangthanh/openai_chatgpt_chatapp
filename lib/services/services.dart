@@ -34,31 +34,31 @@ class Services {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Container(
-                  width: screenWidth - 100,
-                  padding: EdgeInsets.only(bottom: 20),
-                  child: Row(
-                    children: [
-                      Text(
-                        "Dark mode: ",
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 28,
-                            color: myColorsProvider.textHeaderColor),
-                      ),
-                      Expanded(child: Container()),
-                      Switch(
-                        value: myColorsProvider.isDarkMode,
-                        onChanged: (value) => {myColorsProvider.changeMode()},
-                      ),
-                    ],
-                  ),
-                ),
+                // Container(
+                //   width: screenWidth - 100,
+                //   padding: EdgeInsets.only(bottom: 20),
+                //   child: Row(
+                //     children: [
+                //       Text(
+                //         "Dark mode: ",
+                //         style: TextStyle(
+                //             fontWeight: FontWeight.bold,
+                //             fontSize: 28,
+                //             color: myColorsProvider.textHeaderColor),
+                //       ),
+                //       Expanded(child: Container()),
+                //       Switch(
+                //         value: myColorsProvider.isDarkMode,
+                //         onChanged: (value) => {myColorsProvider.changeMode()},
+                //       ),
+                //     ],
+                //   ),
+                // ),
                 Container(
                   width: screenWidth - 100,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(12.0),
-                    color: Colors.green,
+                    color: myColorsProvider.buttonGreenColor,
                   ),
                   child: TextButton(
                     onPressed: () {
@@ -80,7 +80,7 @@ class Services {
                   width: screenWidth - 100,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(12.0),
-                    color: Colors.blueAccent[400],
+                    color: myColorsProvider.buttonHistoryColor,
                   ),
                   child: TextButton(
                     onPressed: () {
