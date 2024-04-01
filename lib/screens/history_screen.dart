@@ -30,6 +30,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
   bool isLoading = true;
 
   Future<void> loadData() async {
+    await _databaseHelper.initDatabase();
     var conversationList = await _databaseHelper.getAllConv();
     setState(() {
       conversations = conversationList;
@@ -64,24 +65,25 @@ class _HistoryScreenState extends State<HistoryScreen> {
           backgroundColor: myColorsProvider.cardColor,
           leading: GestureDetector(
             onTap: () {
-              hideEditConversation();
-              Navigator.pushNamed(context, prevPage);
+              // hideEditConversation();
+              // Navigator.pushNamed(context, prevPage);
             },
             child: const Icon(
               Icons.navigate_before,
               size: 44,
+              color: Colors.white,
             ),
           ),
           title: Row(children: [
             Container(
               height: 40,
               width: 40,
-              decoration: const BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage('assets/images/openai_logo.jpg'),
-                  fit: BoxFit.cover,
+              child:  Image.asset(
+                  'assets/images/openai_logo_purple.png',
+                  width: 40,
+                  height: 40,
+                  color: const Color.fromARGB(255, 8, 24, 244),
                 ),
-              ),
             ),
             const SizedBox(
               width: 10,
@@ -95,12 +97,14 @@ class _HistoryScreenState extends State<HistoryScreen> {
         body: SafeArea(
             child: Visibility(
           visible: isLoading,
-          child: Center(
-            child: CircularProgressIndicator(),
-          ),
-          replacement: RefreshIndicator(
-            onRefresh: loadData,
-            child: Container(
+          // child: Center(
+          //   child: CircularProgressIndicator(),
+          // ),
+          // replacement: RefreshIndicator(
+          //   onRefresh: loadData,
+          //   child: 
+          // ),
+          child: Container(
               child: Column(
                 children: [
                   Expanded(
@@ -220,7 +224,6 @@ class _HistoryScreenState extends State<HistoryScreen> {
                 ],
               ),
             ),
-          ),
         )),
       ),
     );
