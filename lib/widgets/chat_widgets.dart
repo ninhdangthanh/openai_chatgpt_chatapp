@@ -103,7 +103,18 @@ class ChatWidgetState extends State<ChatWidget> {
                       : AssetsManager.botImage,
                   height: 30,
                   width: 30,
+                  color: widget.chatIndex != 0 ? myColorsProvider.buttonHistoryColor : null,
                 ),
+                // Container(
+                //   height: 30,
+                //   width: 30,
+                //   child:  Image.asset(
+                //       'assets/images/openai_logo_purple.png',
+                //       width: 30,
+                //       height: 30,
+                //       color: const Color.fromARGB(255, 8, 24, 244),
+                //     ),
+                // ),
                 const SizedBox(
                   width: 8,
                 ),

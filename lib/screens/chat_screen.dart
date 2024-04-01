@@ -64,7 +64,7 @@ class _ChatScreenState extends State<ChatScreen> {
     super.dispose();
   }
 
-  // List<ChatModel> chatList = [];
+  List<ChatModel> chatList = [];
 
   Future<bool> _onBackPressed() {
     return Future.value(false);
@@ -96,7 +96,7 @@ class _ChatScreenState extends State<ChatScreen> {
               children: [
                 Text(
                   "MYA",
-                  style: TextStyle(fontSize: 24, color: myColorsProvider.buttonHistoryColor, fontWeight: FontWeight.bold),
+                  style: TextStyle(fontSize: 24, color: myColorsProvider.buttonGreenColor, fontWeight: FontWeight.bold),
                 ),
                 Text(
                   "bot",
@@ -104,7 +104,7 @@ class _ChatScreenState extends State<ChatScreen> {
                 ),
                 Text(
                   "AI",
-                  style: TextStyle(color: myColorsProvider.welcomButtomColor, fontSize: 18),
+                  style: TextStyle(color: myColorsProvider.buttonHistoryColor, fontSize: 18),
                 )
               ],
             ),
@@ -241,22 +241,20 @@ class _ChatScreenState extends State<ChatScreen> {
         // chatList.add(ChatModel(msg: textEditingController.text, chatIndex: 0));
         chatProvider.addUserMessage(msg: msg);
 
-        // HistoryService.addChatToConversation(
-        //     chat: ChatModel(msg: msg, chatIndex: 0),
-        //     conversation: conversationProvider.getConversation!);
+        HistoryService.addChatToConversation(
+            chat: ChatModel(msg: msg, chatIndex: 0),
+            conversation: conversationProvider.getConversation!);
         textEditingController.clear();
         focusNode.unfocus();
       });
-      var test_conv = new ConversationModel(name: "name 1");
-      test_conv.id = 2;
       await chatProvider.sendMessageAndGetAnswers(
           msg: msg,
           chosenModelId: modelsProvider.getCurrentModel,
-          conversationModel: test_conv);
-      // chatList.addAll(await ApiService.sendMessage(
-      //   message: textEditingController.text,
-      //   modelId: modelsProvider.getCurrentModel,
-      // ));
+          conversationModel: conversationProvider.getConversation!);
+      chatList.addAll(await ApiService.sendMessage(
+        message: textEditingController.text,
+        modelId: modelsProvider.getCurrentModel,
+      ));
       setState(() {});
     } catch (error) {
       log("error $error");

@@ -30,7 +30,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
   bool isLoading = true;
 
   Future<void> loadData() async {
-    await _databaseHelper.initDatabase();
+    // await _databaseHelper.initDatabase();
     var conversationList = await _databaseHelper.getAllConv();
     setState(() {
       conversations = conversationList;
@@ -65,8 +65,8 @@ class _HistoryScreenState extends State<HistoryScreen> {
           backgroundColor: myColorsProvider.cardColor,
           leading: GestureDetector(
             onTap: () {
-              // hideEditConversation();
-              // Navigator.pushNamed(context, prevPage);
+              hideEditConversation();
+              Navigator.pushNamed(context, prevPage);
             },
             child: const Icon(
               Icons.navigate_before,
@@ -97,14 +97,12 @@ class _HistoryScreenState extends State<HistoryScreen> {
         body: SafeArea(
             child: Visibility(
           visible: isLoading,
-          // child: Center(
-          //   child: CircularProgressIndicator(),
-          // ),
-          // replacement: RefreshIndicator(
-          //   onRefresh: loadData,
-          //   child: 
-          // ),
-          child: Container(
+          child: Center(
+            child: CircularProgressIndicator(),
+          ),
+          replacement: RefreshIndicator(
+            onRefresh: loadData,
+            child: Container(
               child: Column(
                 children: [
                   Expanded(
@@ -154,8 +152,8 @@ class _HistoryScreenState extends State<HistoryScreen> {
                                           : (conversations[index].id ==
                                                   conversationProvider
                                                       .getConversation?.id
-                                              ? Colors.blue[700]
-                                              : Colors.green[700]),
+                                              ? myColorsProvider.buttonGreenColor
+                                              : myColorsProvider.buttonHistoryColor),
                                     ),
                                     title: Text(
                                       conversations[index].name,
@@ -224,6 +222,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                 ],
               ),
             ),
+          ),
         )),
       ),
     );

@@ -15,7 +15,7 @@ class MyColorsProvider with ChangeNotifier {
   Color textInTextfield = Colors.grey;
   Color welcomButtomColor = Colors.white;
   Color buttonGreenColor = const Color.fromARGB(255, 8, 24, 244);
-  Color buttonHistoryColor = const Color.fromARGB(255, 1, 202, 185);
+  Color buttonHistoryColor = Color.fromARGB(255, 0, 154, 141);
   Color buttonCancleColor = Colors.pink.shade600;
 
   void changeMode() {

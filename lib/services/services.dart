@@ -142,7 +142,7 @@ class Services {
                       height: 48,
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.green[800]),
+                            backgroundColor: const Color.fromARGB(255, 8, 24, 244)),
                         onPressed: () async {
                           await _databaseHelper.deleteConv(conversation);
                           Navigator.of(context).pop();
