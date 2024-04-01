@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:ChatGPT/models/conversation_model.dart';
 import 'package:flutter/material.dart';
 import 'package:ChatGPT/constants/constants.dart';
 import 'package:ChatGPT/models/chat_model.dart';
@@ -240,16 +241,18 @@ class _ChatScreenState extends State<ChatScreen> {
         // chatList.add(ChatModel(msg: textEditingController.text, chatIndex: 0));
         chatProvider.addUserMessage(msg: msg);
 
-        HistoryService.addChatToConversation(
-            chat: ChatModel(msg: msg, chatIndex: 0),
-            conversation: conversationProvider.getConversation!);
+        // HistoryService.addChatToConversation(
+        //     chat: ChatModel(msg: msg, chatIndex: 0),
+        //     conversation: conversationProvider.getConversation!);
         textEditingController.clear();
         focusNode.unfocus();
       });
+      var test_conv = new ConversationModel(name: "name 1");
+      test_conv.id = 2;
       await chatProvider.sendMessageAndGetAnswers(
           msg: msg,
           chosenModelId: modelsProvider.getCurrentModel,
-          conversationModel: conversationProvider.getConversation!);
+          conversationModel: test_conv);
       // chatList.addAll(await ApiService.sendMessage(
       //   message: textEditingController.text,
       //   modelId: modelsProvider.getCurrentModel,

@@ -41,39 +41,43 @@ class ApiService {
       {required String message, required String modelId}) async {
     try {
       log("modelId $modelId");
+      var GEMINI_API_KEY = "AIzaSyBhRayu_TxTPe-bkZcn2KG_P91-GX5Mk0I";
       var response = await http.post(
-        Uri.parse("$BASE_URL/chat/completions"),
+        Uri.parse("https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=$GEMINI_API_KEY"),
         headers: {
-          'Authorization': 'Bearer $API_KEY',
           "Content-Type": "application/json"
         },
         body: jsonEncode(
           {
-            "model": modelId,
-            "messages": [
+            "contents": [
               {
-                "role": "user",
-                "content": message,
+                "parts": [
+                  {
+                    "text": message
+                  }
+                ]
               }
-            ],
-            "temperature": 0.7
+            ]
           },
         ),
       );
 
+      print(response);
       // Map jsonResponse = jsonDecode(response.body);
       Map jsonResponse = json.decode(utf8.decode(response.bodyBytes));
       if (jsonResponse['error'] != null) {
         // print("jsonResponse['error'] ${jsonResponse['error']["message"]}");
         throw HttpException(jsonResponse['error']["message"]);
       }
+      // var partsss = jsonResponse["candidates"][0]["content"]["parts"][0]["text"];
+      // print(partsss);
       List<ChatModel> chatList = [];
-      if (jsonResponse["choices"].length > 0) {
+      if (jsonResponse["candidates"].length > 0) {
         // log("jsonResponse[choices]text ${jsonResponse["choices"][0]["text"]}");
         chatList = List.generate(
-          jsonResponse["choices"].length,
+          jsonResponse["candidates"].length,
           (index) => ChatModel(
-            msg: jsonResponse["choices"][index]["message"]["content"],
+            msg: jsonResponse["candidates"][index]["content"]["parts"][0]["text"],
             chatIndex: 1,
           ),
         );
