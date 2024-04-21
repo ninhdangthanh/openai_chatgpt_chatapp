@@ -14,6 +14,7 @@ class ModelsProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  // ignore: non_constant_identifier_names
   List<ModelsModel> models_list = [];
 
   List<ModelsModel> get getModelsList {

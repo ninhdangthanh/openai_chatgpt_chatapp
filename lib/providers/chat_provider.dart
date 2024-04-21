@@ -1,15 +1,12 @@
 import 'package:flutter/cupertino.dart';
-import 'package:ChatGPT/database/database.dart';
 import 'package:ChatGPT/models/conversation_model.dart';
 import 'package:ChatGPT/providers/conversation_provider.dart';
 import 'package:ChatGPT/services/history_services.dart';
-import 'package:sqflite/sqflite.dart';
 
 import '../models/chat_model.dart';
 import '../services/api_services.dart';
 
 class ChatProvider with ChangeNotifier {
-  DatabaseHelper _databaseHelper = DatabaseHelper();
   List<ChatModel> chatList = [];
   List<ChatModel> get getChatList {
     return chatList;

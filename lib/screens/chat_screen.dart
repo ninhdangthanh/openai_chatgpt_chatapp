@@ -1,12 +1,9 @@
 import 'dart:developer';
 
-import 'package:ChatGPT/models/conversation_model.dart';
 import 'package:flutter/material.dart';
-import 'package:ChatGPT/constants/constants.dart';
 import 'package:ChatGPT/models/chat_model.dart';
 import 'package:ChatGPT/providers/models_provider.dart';
 import 'package:ChatGPT/services/api_services.dart';
-import 'package:ChatGPT/services/assets_manager.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:ChatGPT/widgets/text_widget.dart';
 import 'package:provider/provider.dart';
@@ -36,15 +33,15 @@ class _ChatScreenState extends State<ChatScreen> {
   List<GlobalKey<ChatWidgetState>> _childWidgetKeys = [];
 
   void _toggleChildWidget() {
-    _childWidgetKeys.forEach((key) {
+    for (var key in _childWidgetKeys) {
       key.currentState?.setFalse();
-    });
+    }
   }
 
   void _stopChildWidget() {
-    _childWidgetKeys.forEach((key) {
+    for (var key in _childWidgetKeys) {
       key.currentState?.stop();
-    });
+    }
   }
 
   @override
@@ -77,6 +74,7 @@ class _ChatScreenState extends State<ChatScreen> {
     var conversationProvider = Provider.of<ConversationProvider>(context);
     final myColorsProvider = Provider.of<MyColorsProvider>(context);
 
+    // ignore: deprecated_member_use
     return WillPopScope(
       onWillPop: _onBackPressed,
       child: SafeArea(
@@ -258,6 +256,7 @@ class _ChatScreenState extends State<ChatScreen> {
       setState(() {});
     } catch (error) {
       log("error $error");
+      // ignore: use_build_context_synchronously
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: TextWidget(
           label: error.toString(),

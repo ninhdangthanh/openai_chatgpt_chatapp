@@ -1,18 +1,11 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ChatGPT/models/conversation_model.dart';
 import 'package:ChatGPT/providers/conversation_provider.dart';
-import 'package:ChatGPT/screens/history_screen.dart';
-import 'package:provider/provider.dart';
 
-import '../constants/constants.dart';
-import '../database/database.dart';
 import '../providers/chat_provider.dart';
 import '../providers/colors_provider.dart';
 
 class Services {
-  static final DatabaseHelper _databaseHelper = DatabaseHelper();
-
   static Future<void> showModalSheet(
       {required BuildContext context,
       required ChatProvider chatProvider,
@@ -30,7 +23,7 @@ class Services {
         context: context,
         builder: (context) {
           return Padding(
-            padding: EdgeInsets.all(18),
+            padding: const EdgeInsets.all(18),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -73,7 +66,7 @@ class Services {
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 14,
                 ),
                 Container(
@@ -94,7 +87,7 @@ class Services {
                         arguments: {'prevPage': '/chat-screen'},
                       );
                     },
-                    child: Center(
+                    child: const Center(
                       child: Text(
                         "History",
                         style: TextStyle(color: Colors.white, fontSize: 24),
@@ -121,61 +114,59 @@ class Services {
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               Padding(
-                padding: EdgeInsets.only(top: 20),
+                padding: const EdgeInsets.only(top: 20),
                 child: Text(
                   "Delete '${conversation.name}'",
-                  style: TextStyle(
+                  style: const TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
                       fontSize: 24),
                 ),
               ),
-              Padding(padding: EdgeInsets.only(top: 16)),
-              Container(
-                // padding: EdgeInsets.all(10),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    const Padding(padding: EdgeInsets.only(left: 20)),
-                    Expanded(
-                        child: SizedBox(
-                      height: 48,
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color.fromARGB(255, 8, 24, 244)),
-                        onPressed: () async {
-                          await _databaseHelper.deleteConv(conversation);
-                          Navigator.of(context).pop();
-                          await loadData();
-                        },
-                        child: const Text(
-                          "Confirm",
-                          style: TextStyle(fontSize: 16, color: Colors.white),
-                        ),
+              const Padding(padding: EdgeInsets.only(top: 16)),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  const Padding(padding: EdgeInsets.only(left: 20)),
+                  Expanded(
+                      child: SizedBox(
+                    height: 48,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color.fromARGB(255, 8, 24, 244)),
+                      onPressed: () async {
+                        // TODO delete conversation
+                        // await _databaseHelper.deleteConv(conversation);
+                        Navigator.of(context).pop();
+                        await loadData();
+                      },
+                      child: const Text(
+                        "Confirm",
+                        style: TextStyle(fontSize: 16, color: Colors.white),
                       ),
-                    )),
-                    const Padding(padding: EdgeInsets.only(left: 10)),
-                    Expanded(
-                        child: SizedBox(
-                      height: 48,
-                      child: ElevatedButton(
-                        style:
-                            ElevatedButton.styleFrom(backgroundColor: Colors.pink[700]),
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                        child: const Text("Cancel",
-                            style:
-                                TextStyle(fontSize: 16, color: Colors.white)),
-                      ),
-                    )),
-                    const Padding(padding: EdgeInsets.only(right: 20)),
-                  ],
-                ),
+                    ),
+                  )),
+                  const Padding(padding: EdgeInsets.only(left: 10)),
+                  Expanded(
+                      child: SizedBox(
+                    height: 48,
+                    child: ElevatedButton(
+                      style:
+                          ElevatedButton.styleFrom(backgroundColor: Colors.pink[700]),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: const Text("Cancel",
+                          style:
+                              TextStyle(fontSize: 16, color: Colors.white)),
+                    ),
+                  )),
+                  const Padding(padding: EdgeInsets.only(right: 20)),
+                ],
               )
               //ok button
               ,
-              SizedBox(
+              const SizedBox(
                 height: 100,
               )
             ],

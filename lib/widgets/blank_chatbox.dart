@@ -1,4 +1,3 @@
-import 'package:ChatGPT/constants/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -23,7 +22,7 @@ class BlankChatBox extends StatelessWidget {
           color: myColorsProvider.buttonGreenColor,
         ),
         Padding(
-          padding: EdgeInsets.all(10),
+          padding: const EdgeInsets.all(10),
           child: Text(
             "Empty Chat History",
             style: TextStyle(

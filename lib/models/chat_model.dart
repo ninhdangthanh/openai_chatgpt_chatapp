@@ -23,10 +23,10 @@ class ChatModel {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['id'] = this.id;
-    data['msg'] = this.msg;
-    data['chatIndex'] = this.chatIndex;
-    data['conversationId'] = this.conversationId;
+    data['id'] = id;
+    data['msg'] = msg;
+    data['chatIndex'] = chatIndex;
+    data['conversationId'] = conversationId;
     return data;
   }
 

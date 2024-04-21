@@ -1,19 +1,15 @@
 import 'package:ChatGPT/providers/colors_provider.dart';
-import 'package:ChatGPT/screens/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:ChatGPT/providers/chat_provider.dart';
 import 'package:ChatGPT/providers/conversation_provider.dart';
 import 'package:ChatGPT/providers/models_provider.dart';
 import 'package:ChatGPT/screens/chat_screen.dart';
 import 'package:ChatGPT/screens/history_screen.dart';
-import 'package:ChatGPT/screens/test_screen.dart';
 import 'package:ChatGPT/screens/welcome.dart';
 import 'package:provider/provider.dart';
 
-import 'constants/constants.dart';
-
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -35,7 +31,7 @@ class MyApp extends StatelessWidget {
       ChangeNotifierProvider(
         create: (_) => MyColorsProvider(),
       ),
-    ], child: MyAppMaterial());
+    ], child: const MyAppMaterial());
   }
 }
 
@@ -56,15 +52,15 @@ class _MyAppMaterialState extends State<MyAppMaterial> {
       debugShowCheckedModeBanner: false,
       initialRoute: '/',
       routes: {
-        '/history-screen': (context) => HistoryScreen(),
-        '/chat-screen': (context) => ChatScreen(),
+        '/history-screen': (context) => const HistoryScreen(),
+        '/chat-screen': (context) => const ChatScreen(),
       },
       theme: ThemeData(
           scaffoldBackgroundColor: myColorsProvider.scaffoldBackgroundColor,
           appBarTheme: AppBarTheme(
             color: myColorsProvider.cardColor,
           )),
-      home: WelcomeScreen(),
+      home: const WelcomeScreen(),
     );
   }
 }

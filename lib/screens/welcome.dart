@@ -1,14 +1,15 @@
-import 'package:ChatGPT/constants/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:ChatGPT/providers/conversation_provider.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/chat_provider.dart';
 import '../providers/colors_provider.dart';
-import 'history_screen.dart';
 
 class WelcomeScreen extends StatefulWidget {
+  const WelcomeScreen({super.key});
+
   @override
+  // ignore: library_private_types_in_public_api
   _WelcomeScreenState createState() => _WelcomeScreenState();
 }
 
@@ -48,39 +49,37 @@ class _WelcomeScreenState extends State<WelcomeScreen>
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Padding(
-                  padding: EdgeInsets.only(top: 80, bottom: 60),
+                  padding: const EdgeInsets.only(top: 80, bottom: 60),
                   child: Column(
                     children: [
-                      Container(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                                  Text(
-                                    "MYA",
-                                    style: TextStyle(
-                                        color: myColorsProvider.buttonHistoryColor,
-                                        fontSize: 55,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  Text(
-                                    "bot",
-                                    style: TextStyle(
-                                        color: myColorsProvider.textHeaderColor,
-                                        fontSize: 42,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  Text(
-                                    "AI",
-                                    style: TextStyle(
-                                        color: myColorsProvider.textHeaderColor,
-                                        fontSize: 50,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                          ],
-                        )
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                                Text(
+                                  "MYA",
+                                  style: TextStyle(
+                                      color: myColorsProvider.buttonHistoryColor,
+                                      fontSize: 55,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                Text(
+                                  "bot",
+                                  style: TextStyle(
+                                      color: myColorsProvider.textHeaderColor,
+                                      fontSize: 42,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                Text(
+                                  "AI",
+                                  style: TextStyle(
+                                      color: myColorsProvider.textHeaderColor,
+                                      fontSize: 50,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                        ],
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 6,
                       ),
                     ],
@@ -119,7 +118,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 14,
               ),
               Container(
@@ -146,7 +145,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 100,
               )
             ],

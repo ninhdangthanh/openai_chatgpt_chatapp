@@ -41,9 +41,9 @@ class ApiService {
       {required String message, required String modelId}) async {
     try {
       log("modelId $modelId");
-      var GEMINI_API_KEY = "AIzaSyBhRayu_TxTPe-bkZcn2KG_P91-GX5Mk0I";
+      var geminiApiKey = "AIzaSyBhRayu_TxTPe-bkZcn2KG_P91-GX5Mk0I";
       var response = await http.post(
-        Uri.parse("https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=$GEMINI_API_KEY"),
+        Uri.parse("https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=$geminiApiKey"),
         headers: {
           "Content-Type": "application/json"
         },
@@ -62,7 +62,7 @@ class ApiService {
         ),
       );
 
-      print(response);
+      // print(response);
       // Map jsonResponse = jsonDecode(response.body);
       Map jsonResponse = json.decode(utf8.decode(response.bodyBytes));
       if (jsonResponse['error'] != null) {

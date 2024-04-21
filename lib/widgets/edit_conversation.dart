@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:ChatGPT/models/conversation_model.dart';
 import 'package:provider/provider.dart';
 
-import '../constants/constants.dart';
-import '../database/database.dart';
 import '../providers/colors_provider.dart';
 
+// ignore: must_be_immutable
 class EditConversaion extends StatelessWidget {
-  final DatabaseHelper _databaseHelper = DatabaseHelper();
 
   TextEditingController nameConvText = TextEditingController();
   Function hideEditConversation;
@@ -34,7 +30,7 @@ class EditConversaion extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               Container(
-                padding: EdgeInsets.only(top: 10, bottom: 20),
+                padding: const EdgeInsets.only(top: 10, bottom: 20),
                 child: Text(
                   "Edit Conversation",
                   style: TextStyle(
@@ -54,7 +50,7 @@ class EditConversaion extends StatelessWidget {
                           ),
                           borderRadius: BorderRadius.circular(16)),
                       padding:
-                          EdgeInsets.symmetric(horizontal: 10, vertical: 12),
+                          const EdgeInsets.symmetric(horizontal: 10, vertical: 12),
                       child: TextField(
                         style:
                             TextStyle(color: myColorsProvider.textHeaderColor),
@@ -70,7 +66,7 @@ class EditConversaion extends StatelessWidget {
                 ],
               ),
               Container(
-                padding: EdgeInsets.only(top: 20),
+                padding: const EdgeInsets.only(top: 20),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
@@ -86,7 +82,7 @@ class EditConversaion extends StatelessWidget {
                           await loadData();
                           await hideEditConversation();
                         },
-                        child: Text(
+                        child: const Text(
                           "Save",
                           style: TextStyle(fontSize: 16, color: Colors.white),
                         ),
@@ -102,7 +98,7 @@ class EditConversaion extends StatelessWidget {
                         onPressed: () {
                           hideEditConversation();
                         },
-                        child: Text("Cancel",
+                        child: const Text("Cancel",
                             style:
                                 TextStyle(fontSize: 16, color: Colors.white)),
                       ),
@@ -111,7 +107,7 @@ class EditConversaion extends StatelessWidget {
                   ],
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 100,
               )
             ],
@@ -120,7 +116,7 @@ class EditConversaion extends StatelessWidget {
   }
 
   Future<void> saveUpdateConversation() async {
-    conversation.name = await nameConvText.text;
-    await _databaseHelper.updateConv(conversation);
+    conversation.name = nameConvText.text;
+    // await _databaseHelper.updateConv(conversation);
   }
 }

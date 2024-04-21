@@ -1,7 +1,3 @@
-import 'package:flutter/material.dart';
-
-import '../widgets/text_widget.dart';
-
 // dark mode
 
 // Color scaffoldBackgroundColor = const Color(0xFF141414);

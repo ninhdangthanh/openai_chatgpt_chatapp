@@ -1,9 +1,7 @@
 import 'package:flutter/cupertino.dart';
-import 'package:ChatGPT/database/database.dart';
 import 'package:ChatGPT/models/conversation_model.dart';
 
 class ConversationProvider with ChangeNotifier {
-  final DatabaseHelper _databaseHelper = DatabaseHelper();
   ConversationModel? conversation;
 
   ConversationModel? get getConversation {
@@ -12,7 +10,7 @@ class ConversationProvider with ChangeNotifier {
 
   void changeCurrentConversation(
       {required ConversationModel conversationModel}) async {
-    conversation = await conversationModel;
+    conversation = conversationModel;
     notifyListeners();
   }
 }

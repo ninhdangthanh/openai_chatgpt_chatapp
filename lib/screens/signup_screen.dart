@@ -1,14 +1,13 @@
-import 'package:ChatGPT/constants/constants.dart';
 import 'package:flutter/material.dart';
-import 'package:ChatGPT/providers/conversation_provider.dart';
 import 'package:provider/provider.dart';
 
-import '../providers/chat_provider.dart';
 import '../providers/colors_provider.dart';
-import 'history_screen.dart';
 
 class SignUpScreen extends StatefulWidget {
+  const SignUpScreen({super.key});
+
   @override
+  // ignore: library_private_types_in_public_api
   _SignUpScreenState createState() => _SignUpScreenState();
 }
 
@@ -36,9 +35,9 @@ class _SignUpScreenState extends State<SignUpScreen>
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
-    final chatProvider = Provider.of<ChatProvider>(context);
+    // final chatProvider = Provider.of<ChatProvider>(context);
     final myColorsProvider = Provider.of<MyColorsProvider>(context);
-    var conversationProvider = Provider.of<ConversationProvider>(context);
+    // var conversationProvider = Provider.of<ConversationProvider>(context);
 
     return Scaffold(
       backgroundColor: myColorsProvider.backgroundColor,
@@ -51,34 +50,32 @@ class _SignUpScreenState extends State<SignUpScreen>
                   padding: const EdgeInsets.only(top: 40, bottom: 60),
                   child: Column(
                     children: [
-                      Container(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                                  Text(
-                                    "MYA",
-                                    style: TextStyle(
-                                        color: myColorsProvider.buttonHistoryColor,
-                                        fontSize: 55,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  Text(
-                                    "bot",
-                                    style: TextStyle(
-                                        color: myColorsProvider.textHeaderColor,
-                                        fontSize: 42,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  Text(
-                                    "AI",
-                                    style: TextStyle(
-                                        color: myColorsProvider.textHeaderColor,
-                                        fontSize: 50,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                          ],
-                        )
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                                Text(
+                                  "MYA",
+                                  style: TextStyle(
+                                      color: myColorsProvider.buttonHistoryColor,
+                                      fontSize: 55,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                Text(
+                                  "bot",
+                                  style: TextStyle(
+                                      color: myColorsProvider.textHeaderColor,
+                                      fontSize: 42,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                Text(
+                                  "AI",
+                                  style: TextStyle(
+                                      color: myColorsProvider.textHeaderColor,
+                                      fontSize: 50,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                        ],
                       ),
                       const SizedBox(
                         height: 6,
@@ -96,7 +93,7 @@ class _SignUpScreenState extends State<SignUpScreen>
               ),
               Expanded(child: Container()),
               Padding(
-                padding: EdgeInsets.only(right: 40, left: 40),
+                padding: const EdgeInsets.only(right: 40, left: 40),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
@@ -149,9 +146,7 @@ class _SignUpScreenState extends State<SignUpScreen>
                       ),
                     ),
                     const SizedBox(height: 20,),
-                    Container(
-                      child: const  Text("Already have account", style: TextStyle(color: Colors.white),),
-                    )
+                    const  Text("Already have account", style: TextStyle(color: Colors.white),)
                   ],
                 ),
               ),

@@ -1,6 +1,4 @@
-import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
-import 'package:ChatGPT/constants/constants.dart';
 import 'package:ChatGPT/services/assets_manager.dart';
 import 'package:ChatGPT/widgets/text_widget.dart';
 import 'package:flutter_tts/flutter_tts.dart';
@@ -8,6 +6,7 @@ import 'package:provider/provider.dart';
 
 import '../providers/colors_provider.dart';
 
+// ignore: must_be_immutable
 class ChatWidget extends StatefulWidget {
   final String msg;
   final int chatIndex;
@@ -57,7 +56,7 @@ class ChatWidgetState extends State<ChatWidget> {
           isSpeakingText.value = false;
         });
 
-        print("end------- $isSpeakingText.value");
+        // print("end------- $isSpeakingText.value");
       }
     });
   }
@@ -153,7 +152,7 @@ class ChatWidgetState extends State<ChatWidget> {
                                     onTap: () {
                                       stop();
                                     },
-                                    child: Icon(
+                                    child: const Icon(
                                       Icons.stop_circle_outlined,
                                       color: Colors.red,
                                       size: 30,
@@ -181,6 +180,5 @@ class ChatWidgetState extends State<ChatWidget> {
         ),
       ],
     );
-    ;
   }
 }

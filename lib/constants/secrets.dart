@@ -1,1 +1,2 @@
-String API_KEY = "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";
+// ignore: non_constant_identifier_names
+String API_KEY = "";
