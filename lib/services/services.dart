@@ -60,7 +60,7 @@ class Services {
                     },
                     child: const Center(
                       child: Text(
-                        "New Chat",
+                        "Reset Chat",
                         style: TextStyle(color: Colors.white, fontSize: 24),
                       ),
                     ),
@@ -73,23 +73,23 @@ class Services {
                   width: screenWidth - 100,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(12.0),
-                    color: myColorsProvider.buttonHistoryColor,
+                    color: myColorsProvider.buttonCancleColor,
                   ),
                   child: TextButton(
                     onPressed: () {
                       // final route = MaterialPageRoute(
                       //     builder: (context) => HistoryScreen());
                       // Navigator.push(context, route);
-                      Navigator.pushNamed(context, '/history-screen');
-                      Navigator.pushNamed(
-                        context,
-                        '/history-screen',
-                        arguments: {'prevPage': '/chat-screen'},
-                      );
+                      // Navigator.pushNamed(context, '/history-screen');
+                      // Navigator.pushNamed(
+                      //   context,
+                      //   '/history-screen',
+                      //   arguments: {'prevPage': '/chat-screen'},
+                      // );
                     },
                     child: const Center(
                       child: Text(
-                        "History",
+                        "Logout",
                         style: TextStyle(color: Colors.white, fontSize: 24),
                       ),
                     ),

@@ -60,7 +60,7 @@ class _MyAppMaterialState extends State<MyAppMaterial> {
           appBarTheme: AppBarTheme(
             color: myColorsProvider.cardColor,
           )),
-      home: const WelcomeScreen(),
+      home: const ChatScreen(),
     );
   }
 }

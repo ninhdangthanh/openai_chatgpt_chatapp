@@ -121,30 +121,30 @@ class _WelcomeScreenState extends State<WelcomeScreen>
               const SizedBox(
                 height: 14,
               ),
-              Container(
-                width: screenWidth - 100,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12.0),
-                  color: myColorsProvider.buttonHistoryColor,
-                ),
-                child: TextButton(
-                  onPressed: () {
-                    Navigator.pushNamed(
-                      context,
-                      '/history-screen',
-                      arguments: {'prevPage': '/'},
-                    );
-                  },
-                  child: Center(
-                    child: Text(
-                      "History",
-                      style: TextStyle(
-                          color: myColorsProvider.welcomButtomColor,
-                          fontSize: 24),
-                    ),
-                  ),
-                ),
-              ),
+              // Container(
+              //   width: screenWidth - 100,
+              //   decoration: BoxDecoration(
+              //     borderRadius: BorderRadius.circular(12.0),
+              //     color: myColorsProvider.buttonHistoryColor,
+              //   ),
+              //   child: TextButton(
+              //     onPressed: () {
+              //       Navigator.pushNamed(
+              //         context,
+              //         '/history-screen',
+              //         arguments: {'prevPage': '/'},
+              //       );
+              //     },
+              //     child: Center(
+              //       child: Text(
+              //         "History",
+              //         style: TextStyle(
+              //             color: myColorsProvider.welcomButtomColor,
+              //             fontSize: 24),
+              //       ),
+              //     ),
+              //   ),
+              // ),
               const SizedBox(
                 height: 100,
               )
