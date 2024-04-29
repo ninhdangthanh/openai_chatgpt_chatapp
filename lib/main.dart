@@ -1,4 +1,6 @@
+import 'package:ChatGPT/firebase_options.dart';
 import 'package:ChatGPT/providers/colors_provider.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:ChatGPT/providers/chat_provider.dart';
 import 'package:ChatGPT/providers/conversation_provider.dart';
@@ -8,7 +10,11 @@ import 'package:ChatGPT/screens/history_screen.dart';
 import 'package:ChatGPT/screens/welcome.dart';
 import 'package:provider/provider.dart';
 
-void main() {
+void main() async {
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  
   runApp(const MyApp());
 }
 

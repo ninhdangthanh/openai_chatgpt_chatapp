@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "430573276237",
+    "project_id": "flutter-cuoiky",
+    "storage_bucket": "flutter-cuoiky.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:430573276237:android:ca6d2400b77653a4192004",
+        "android_client_info": {
+          "package_name": "com.example.loginsignup"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDPcML5L8_FJJyBX5a0FfjteNS03k4FB88"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:430573276237:android:dfb2fdc8e414304d192004",
+        "android_client_info": {
+          "package_name": "com.example.openai_chatgpt_chatapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDPcML5L8_FJJyBX5a0FfjteNS03k4FB88"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
