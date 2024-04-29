@@ -1,3 +1,7 @@
+import 'package:ChatGPT/screens/login_screen.dart';
+import 'package:ChatGPT/screens/welcome.dart';
+import 'package:ChatGPT/service/auth_service.dart';
+import 'package:ChatGPT/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -14,6 +18,11 @@ class SignUpScreen extends StatefulWidget {
 class _SignUpScreenState extends State<SignUpScreen>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
+  AuthService authService = AuthService();
+  
+  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
   @override
   void initState() {
@@ -26,11 +35,47 @@ class _SignUpScreenState extends State<SignUpScreen>
     )..repeat();
   }
 
+  void _handleSignUp() async {
+    String username = _usernameController.text.trim();
+    String email = _emailController.text.trim();
+    String password = _passwordController.text.trim();
+
+    // You can now handle the sign-up logic with these values
+    // print("Sign-up button clicked");
+    print("Username: $username");
+    print("Email: $email");
+    print("Password: $password");
+
+
+    await authService
+        .registerUserWithEmailandPassword(username, email, password)
+        .then((value) async {
+
+      print("registered $value");
+      if (value == true) {
+        // await HelperFunctions.saveUserLoggedInStatus(true);
+        // await HelperFunctions.saveUserEmailSF(email);
+        // await HelperFunctions.saveUserNameSF(username);
+        Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => WelcomeScreen()));
+      } else {
+        print("register failed");
+        showSnackbar(context, Colors.red, value);
+      }
+    });
+
+    print("register done");
+  }
+
   @override
   void dispose() {
-    _controller.dispose();
+    // _usernameController.dispose();
+    // _emailController.dispose();
+    // _passwordController.dispose();
+    // _controller.dispose();
     super.dispose();
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -71,7 +116,7 @@ class _SignUpScreenState extends State<SignUpScreen>
                                 Text(
                                   "AI",
                                   style: TextStyle(
-                                      color: myColorsProvider.textHeaderColor,
+                                      color: myColorsProvider.buttonGreenColor,
                                       fontSize: 50,
                                       fontWeight: FontWeight.bold),
                                 ),
@@ -97,44 +142,44 @@ class _SignUpScreenState extends State<SignUpScreen>
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    const TextField(
-                      decoration: InputDecoration(
+                    TextField(
+                      controller: _emailController,
+                      decoration: const InputDecoration(
+                        labelText: 'Email',
+                        labelStyle: TextStyle(color: Colors.white)
+                      ),
+                      style: const TextStyle(color: Colors.white),
+                    ),
+                    const SizedBox(height: 20.0),
+                    TextField(
+                      controller: _usernameController,
+                      decoration: const InputDecoration(
                         labelText: 'Username',
                         labelStyle: TextStyle(color: Colors.white)
                       ),
+                      style: const TextStyle(color: Colors.white),
+                      // obscureText: true,
                     ),
                     const SizedBox(height: 20.0),
-                    const TextField(
-                      decoration: InputDecoration(
+                    TextField(
+                      controller: _passwordController,
+                      decoration: const InputDecoration(
                         labelText: 'Password',
                         labelStyle: TextStyle(color: Colors.white)
                       ),
-                      obscureText: true,
-                    ),
-                    const SizedBox(height: 20.0),
-                    const TextField(
-                      decoration: InputDecoration(
-                        labelText: 'Confirm Password',
-                        labelStyle: TextStyle(color: Colors.white)
-                      ),
+                      style: const TextStyle(color: Colors.white),
                       obscureText: true,
                     ),
                     const SizedBox(height: 20.0),
                     Container(
-                      padding: const EdgeInsets.only(top: 6, bottom: 6),
+                      // padding: const EdgeInsets.only(top: 6, bottom: 6),
                       width: screenWidth - 100,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(12.0),
                         color: myColorsProvider.buttonHistoryColor,
                       ),
                       child: TextButton(
-                        onPressed: () {
-                          // Navigator.pushNamed(
-                          //   context,
-                          //   '/history-screen',
-                          //   arguments: {'prevPage': '/'},
-                          // );
-                        },
+                        onPressed: _handleSignUp,
                         child: Center(
                           child: Text(
                             "Sign up",
@@ -146,7 +191,12 @@ class _SignUpScreenState extends State<SignUpScreen>
                       ),
                     ),
                     const SizedBox(height: 20,),
-                    const  Text("Already have account", style: TextStyle(color: Colors.white),)
+                    GestureDetector (onTap: () {
+                      Navigator.pushReplacement(
+                        context, MaterialPageRoute(builder: (context) => LoginScreen()));
+                    },
+                      child: const Text("Already have account", style: TextStyle(color: Colors.white),)
+                    )
                   ],
                 ),
               ),

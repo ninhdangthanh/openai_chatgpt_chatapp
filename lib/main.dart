@@ -1,5 +1,6 @@
 import 'package:ChatGPT/firebase_options.dart';
 import 'package:ChatGPT/providers/colors_provider.dart';
+import 'package:ChatGPT/screens/login_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:ChatGPT/providers/chat_provider.dart';
@@ -66,7 +67,7 @@ class _MyAppMaterialState extends State<MyAppMaterial> {
           appBarTheme: AppBarTheme(
             color: myColorsProvider.cardColor,
           )),
-      home: const ChatScreen(),
+      home: const LoginScreen(),
     );
   }
 }
