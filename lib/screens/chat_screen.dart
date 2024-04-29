@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:ChatGPT/models/conversation_model.dart';
 import 'package:flutter/material.dart';
 import 'package:ChatGPT/models/chat_model.dart';
 import 'package:ChatGPT/providers/models_provider.dart';
@@ -234,21 +235,25 @@ class _ChatScreenState extends State<ChatScreen> {
     }
     try {
       String msg = textEditingController.text;
+
+      ConversationModel conversationModel = ConversationModel(name: "conver 1");
+
       setState(() {
         _isTyping = true;
         // chatList.add(ChatModel(msg: textEditingController.text, chatIndex: 0));
         chatProvider.addUserMessage(msg: msg);
 
+
         HistoryService.addChatToConversation(
             chat: ChatModel(msg: msg, chatIndex: 0),
-            conversation: conversationProvider.getConversation!);
+            conversation: conversationModel);
         textEditingController.clear();
         focusNode.unfocus();
       });
       await chatProvider.sendMessageAndGetAnswers(
           msg: msg,
           chosenModelId: modelsProvider.getCurrentModel,
-          conversationModel: conversationProvider.getConversation!);
+          conversationModel: conversationModel);
       chatList.addAll(await ApiService.sendMessage(
         message: textEditingController.text,
         modelId: modelsProvider.getCurrentModel,
@@ -257,12 +262,13 @@ class _ChatScreenState extends State<ChatScreen> {
     } catch (error) {
       log("error $error");
       // ignore: use_build_context_synchronously
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: TextWidget(
-          label: error.toString(),
-        ),
-        backgroundColor: Colors.red,
-      ));
+      
+      // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      //   content: TextWidget(
+      //     label: error.toString(),
+      //   ),
+      //   backgroundColor: Colors.red,
+      // ));
     } finally {
       setState(() {
         scrollListToEND();

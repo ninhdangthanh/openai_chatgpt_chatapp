@@ -55,7 +55,8 @@ class Services {
                   ),
                   child: TextButton(
                     onPressed: () {
-                      chatProvider.generateNewChat(conversationProvider);
+                      // chatProvider.generateNewChat(conversationProvider);
+                      chatProvider.resetChatList();
                       Navigator.pop(context);
                     },
                     child: const Center(

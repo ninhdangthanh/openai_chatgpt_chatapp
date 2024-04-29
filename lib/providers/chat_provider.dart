@@ -53,4 +53,9 @@ class ChatProvider with ChangeNotifier {
     }
     notifyListeners();
   }
+
+  void resetChatList () {
+    chatList.clear();
+  }
+
 }
