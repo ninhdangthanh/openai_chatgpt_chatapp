@@ -1,4 +1,5 @@
 import 'package:ChatGPT/firebase_options.dart';
+import 'package:ChatGPT/helper/helper_function.dart';
 import 'package:ChatGPT/providers/colors_provider.dart';
 import 'package:ChatGPT/screens/login_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -50,6 +51,24 @@ class MyAppMaterial extends StatefulWidget {
 }
 
 class _MyAppMaterialState extends State<MyAppMaterial> {
+  bool _isSignedIn = false;
+
+  @override
+  void initState() {
+    super.initState();
+    getUserLoggedInStatus();
+  }
+
+  getUserLoggedInStatus() async {
+    await HelperFunctions.getUserLoggedInStatus().then((value) {
+      if (value != null) {
+        setState(() {
+          _isSignedIn = value;
+        });
+      }
+    });
+  }
+  
   @override
   Widget build(BuildContext context) {
     final myColorsProvider = Provider.of<MyColorsProvider>(context);
@@ -67,7 +86,7 @@ class _MyAppMaterialState extends State<MyAppMaterial> {
           appBarTheme: AppBarTheme(
             color: myColorsProvider.cardColor,
           )),
-      home: const LoginScreen(),
+      home: _isSignedIn ? const WelcomeScreen() : const LoginScreen(),
     );
   }
 }

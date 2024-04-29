@@ -1,3 +1,5 @@
+import 'package:ChatGPT/helper/helper_function.dart';
+import 'package:ChatGPT/screens/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:ChatGPT/models/conversation_model.dart';
 import 'package:ChatGPT/providers/conversation_provider.dart';
@@ -77,7 +79,10 @@ class Services {
                     color: myColorsProvider.buttonCancleColor,
                   ),
                   child: TextButton(
-                    onPressed: () {
+                    onPressed: () async {
+                      await HelperFunctions.saveUserLoggedInStatus(false);
+                      Navigator.pushReplacement(
+                        context, MaterialPageRoute(builder: (context) => LoginScreen()));
                       // final route = MaterialPageRoute(
                       //     builder: (context) => HistoryScreen());
                       // Navigator.push(context, route);

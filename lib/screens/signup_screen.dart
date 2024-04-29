@@ -1,3 +1,4 @@
+import 'package:ChatGPT/helper/helper_function.dart';
 import 'package:ChatGPT/screens/login_screen.dart';
 import 'package:ChatGPT/screens/welcome.dart';
 import 'package:ChatGPT/service/auth_service.dart';
@@ -53,9 +54,7 @@ class _SignUpScreenState extends State<SignUpScreen>
 
       print("registered $value");
       if (value == true) {
-        // await HelperFunctions.saveUserLoggedInStatus(true);
-        // await HelperFunctions.saveUserEmailSF(email);
-        // await HelperFunctions.saveUserNameSF(username);
+        await HelperFunctions.saveUserLoggedInStatus(true);
         Navigator.pushReplacement(
           context, MaterialPageRoute(builder: (context) => WelcomeScreen()));
       } else {
