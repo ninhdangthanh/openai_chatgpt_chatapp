@@ -47,27 +47,28 @@ class _LoginScreenState extends State<LoginScreen>
     String email = _emailController.text.trim();
     String password = _passwordController.text.trim();
 
-    print("Email: $email");
-    print("Password: $password");
+    // print("Email: $email");
+    // print("Password: $password");
 
 
     await authService
         .loginWithUserNameandPassword(email, password)
         .then((value) async {
 
-      print("login $value");
+      // print("login $value");
       if (value == true) {
-        print("login success");
+        // print("login success");
         await HelperFunctions.saveUserLoggedInStatus(true);
         Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => WelcomeScreen()));
+          // ignore: use_build_context_synchronously
+          context, MaterialPageRoute(builder: (context) => const WelcomeScreen()));
       } else {
-        print("login failed");
+        // print("login failed");
         showSnackbar(context, Colors.red, value);
       }
     });
 
-    print("login done");
+    // print("login done");
   }
 
 
@@ -177,7 +178,7 @@ class _LoginScreenState extends State<LoginScreen>
                     const SizedBox(height: 20,),
                     GestureDetector (onTap: () {
                       Navigator.pushReplacement(
-                        context, MaterialPageRoute(builder: (context) => SignUpScreen()));
+                        context, MaterialPageRoute(builder: (context) => const SignUpScreen()));
                     },
                       child: const Text("Create an account", style: TextStyle(color: Colors.white),)
                     )

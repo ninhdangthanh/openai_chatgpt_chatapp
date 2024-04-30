@@ -82,7 +82,8 @@ class Services {
                     onPressed: () async {
                       await HelperFunctions.saveUserLoggedInStatus(false);
                       Navigator.pushReplacement(
-                        context, MaterialPageRoute(builder: (context) => LoginScreen()));
+                        // ignore: use_build_context_synchronously
+                        context, MaterialPageRoute(builder: (context) => const LoginScreen()));
                       // final route = MaterialPageRoute(
                       //     builder: (context) => HistoryScreen());
                       // Navigator.push(context, route);
@@ -141,7 +142,6 @@ class Services {
                       style: ElevatedButton.styleFrom(
                           backgroundColor: const Color.fromARGB(255, 8, 24, 244)),
                       onPressed: () async {
-                        // TODO delete conversation
                         // await _databaseHelper.deleteConv(conversation);
                         Navigator.of(context).pop();
                         await loadData();

@@ -43,27 +43,28 @@ class _SignUpScreenState extends State<SignUpScreen>
 
     // You can now handle the sign-up logic with these values
     // print("Sign-up button clicked");
-    print("Username: $username");
-    print("Email: $email");
-    print("Password: $password");
+    // print("Username: $username");
+    // print("Email: $email");
+    // print("Password: $password");
 
 
     await authService
         .registerUserWithEmailandPassword(username, email, password)
         .then((value) async {
 
-      print("registered $value");
+      // print("registered $value");
       if (value == true) {
         await HelperFunctions.saveUserLoggedInStatus(true);
         Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => WelcomeScreen()));
+          // ignore: use_build_context_synchronously
+          context, MaterialPageRoute(builder: (context) => const WelcomeScreen()));
       } else {
-        print("register failed");
+        // print("register failed");
         showSnackbar(context, Colors.red, value);
       }
     });
 
-    print("register done");
+    // print("register done");
   }
 
   @override
@@ -192,7 +193,7 @@ class _SignUpScreenState extends State<SignUpScreen>
                     const SizedBox(height: 20,),
                     GestureDetector (onTap: () {
                       Navigator.pushReplacement(
-                        context, MaterialPageRoute(builder: (context) => LoginScreen()));
+                        context, MaterialPageRoute(builder: (context) => const LoginScreen()));
                     },
                       child: const Text("Already have account", style: TextStyle(color: Colors.white),)
                     )

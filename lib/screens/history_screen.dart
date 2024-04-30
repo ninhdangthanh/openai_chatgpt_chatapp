@@ -114,7 +114,6 @@ class _HistoryScreenState extends State<HistoryScreen> {
                                             .normalHistoryColor),
                                 child: ListTile(
                                   onTap: () async {
-                                    // TODO Handle onTap action here
                                     hideEditConversation();
                                     Navigator.pushNamed(
                                         context, '/chat-screen');
